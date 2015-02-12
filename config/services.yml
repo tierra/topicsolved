@@ -1,0 +1,18 @@
+services:
+    tierra.topicsolved.controller:
+        class: tierra\topicsolved\controller\main_controller
+        arguments:
+            - @config
+            - @config_text
+            - @controller.helper
+            - @dbal.conn
+            - @request
+            - @template
+            - @user
+    tierra.topicsolved.listener:
+        class: tierra\topicsolved\event\main_listener
+        arguments:
+            - @controller.helper
+            - @template
+        tags:
+            - { name: event.listener }

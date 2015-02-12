@@ -1,34 +1,32 @@
 {
-	"name": "tierra/phpbb-topic-solved",
+	"name": "tierra/topicsolved",
 	"type": "phpbb-extension",
 	"description": "Allows posting questions, and accepting answers as solved.",
-	"homepage": "https://github.com/tierra/phpbb-topic-solved",
+	"homepage": "https://github.com/tierra/topicsolved",
 	"version": "0.1.0",
 	"keywords": ["phpbb", "extension", "question", "answer", "solved"],
 	"license": "GPL-2.0",
 	"authors": [
 		{
-			"name": "Jari Kanerva",
-			"email": "tumba25@gmail.com",
-			"role": "Developer"
+			"name": "Bryan Petty",
+			"email": "bryan@ibaku.net"
 		},
 		{
-			"name": "Bryan Petty",
-			"email": "bryan@ibaku.net",
-			"role": "Developer"
+			"name": "Jari Kanerva",
+			"email": "tumba25@gmail.com"
 		}
 	],
-	"autoload": {
-		"psr-4": {"Tierra\\TopicSolved\\": ""}
-	},
 	"require": {
 		"php": ">=5.3.3",
 		"composer/installers": "~1.0"
 	},
+	"require-dev": {
+		"phpbb/epv": "dev-master"
+	},
 	"extra": {
 		"display-name": "Topic Solved",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.3,<3.2.*@dev"
+			"phpbb/phpbb": "~3.1.3"
 		}
 	}
 }

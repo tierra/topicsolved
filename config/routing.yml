@@ -1,0 +1,3 @@
+tierra_topicsolved_controller:
+    path: /topicsolved/{name}
+    defaults: { _controller: tierra.topicsolved.controller:handle }

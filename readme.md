@@ -6,7 +6,7 @@ Allows posting questions, and accepting answers as solved.
 
 You can install this on the latest release of phpBB by following the steps below:
 
-1. [Download the latest release](https://github.com/tierra/phpbb-topic-solved/releases).
+1. [Download the latest release](https://github.com/tierra/topicsolved/releases).
 2. Unzip the downloaded release, and change the name of the folder to
    `topicsolved`.
 3. In the `ext` directory of your phpBB board, create a new directory named
@@ -29,7 +29,7 @@ You can install this on the latest release of phpBB by following the steps below
 ## Support
 
 * Report bugs and other issues to our
-  [Issue Tracker](https://github.com/tierra/phpbb-topic-solved/issues).
+  [Issue Tracker](https://github.com/tierra/topicsolved/issues).
 
 ## License
 
