@@ -71,6 +71,7 @@ class main_controller
 	 * Main controller for route /topicsolved/{name}
 	 *
 	 * @param string $name
+	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function handle($name)

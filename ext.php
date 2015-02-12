@@ -11,7 +11,7 @@
 namespace tierra\topicsolved;
 
 /**
- * Class ext
+ * Extension enable, disable, and purge triggers.
  *
  * @package tierra\topicsolved
  */
