@@ -20,6 +20,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class main_listener implements EventSubscriberInterface
 {
+	/* @var \tierra\topicsolved\topicsolved */
+	protected $topicsolved;
+
 	/* @var \phpbb\controller\helper */
 	protected $helper;
 
@@ -41,6 +44,7 @@ class main_listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
+	 * @param \tierra\topicsolved\topicsolved $topicsolved Core topicsolved helper.
 	 * @param \phpbb\controller\helper $helper Controller helper object
 	 * @param \phpbb\template\template $template Template object
 	 * @param \phpbb\user $user
@@ -49,12 +53,14 @@ class main_listener implements EventSubscriberInterface
 	 * @param string $php_ext core.php_ext
 	 */
 	public function __construct(
+		topicsolved $topicsolved,
 		\phpbb\controller\helper $helper,
 		\phpbb\template\template $template,
 		\phpbb\user $user,
 		\phpbb\auth\auth $auth,
 		$root_path, $php_ext)
 	{
+		$this->topicsolved = $topicsolved;
 		$this->helper = $helper;
 		$this->template = $template;
 		$this->user = $user;
@@ -113,7 +119,7 @@ class main_listener implements EventSubscriberInterface
 				if (!empty($row['forum_solve_color']))
 				{
 					$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url,
-						$row['forum_solve_color'], $row['forum_solve_text']);
+						"color: #{$row['forum_solve_color']};", $row['forum_solve_text']);
 				}
 				else
 				{
@@ -127,7 +133,7 @@ class main_listener implements EventSubscriberInterface
 				//	$this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED'));
 
 				// Fallback for now
-				$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, 'color: #0a0;', '[SOLVED]');
+				$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, 'color: #00CC00;', '[SOLVED]');
 			}
 
 			$event['topic_row'] = $topic_row;
@@ -168,48 +174,10 @@ class main_listener implements EventSubscriberInterface
 	public function viewtopic_modify_post_row($event)
 	{
 		$topic_data = $event['topic_data'];
-
-		$ok_solve = false;
-		$ok_unsolve = false;
-
-		// Check if the user has permission to solve this topic and that this topic can be solved.
-		if (($topic_data['forum_allow_solve'] == topicsolved::TOPIC_SOLVED_MOD ||
-			$topic_data['forum_allow_solve'] == topicsolved::TOPIC_SOLVED_YES) &&
-			$this->auth->acl_get('m_'))
-		{
-			$ok_solve = true;
-		}
-		else if ($topic_data['forum_allow_solve'] == topicsolved::TOPIC_SOLVED_YES &&
-			$topic_data['topic_poster'] == $this->user->data['user_id'] &&
-			$topic_data['topic_status'] == ITEM_UNLOCKED)
-		{
-			$ok_solve = true;
-		}
-
-		// Check if the user has permission to unsolve this topic and that this topic can be unsolved.
-		if (($topic_data['forum_allow_unsolve'] == topicsolved::TOPIC_SOLVED_MOD ||
-			$topic_data['forum_allow_unsolve'] == topicsolved::TOPIC_SOLVED_YES) &&
-			$this->auth->acl_get('m_'))
-		{
-			$ok_unsolve = true;
-		}
-		else if ($topic_data['forum_allow_unsolve'] == topicsolved::TOPIC_SOLVED_YES &&
-			$topic_data['topic_poster'] == $this->user->data['user_id'] &&
-			$topic_data['topic_status'] == ITEM_UNLOCKED)
-		{
-			$ok_unsolve = true;
-		}
-
-		// Disallow (un)solving topic if post is global.
-		if ($topic_data['topic_type'] == POST_GLOBAL)
-		{
-			$ok_solve = false;
-			$ok_unsolve = false;
-		}
-
 		$post_row = $event['post_row'];
 
-		if ($ok_solve && !$topic_data['topic_solved'])
+		if ($this->topicsolved->user_can_solve_post('solved', $topic_data) &&
+			!$topic_data['topic_solved'])
 		{
 			$post_row['U_SET_SOLVED'] = $this->helper->route(
 				'tierra_topicsolved_controller_solve', array(
@@ -218,7 +186,8 @@ class main_listener implements EventSubscriberInterface
 				)
 			);
 		}
-		else if ($ok_unsolve && $topic_data['topic_solved'])
+		else if ($this->topicsolved->user_can_solve_post('unsolved', $topic_data) &&
+			$topic_data['topic_solved'])
 		{
 			$post_row['U_SET_SOLVED'] = $this->helper->route(
 				'tierra_topicsolved_controller_unsolve', array(
@@ -255,8 +224,13 @@ class main_listener implements EventSubscriberInterface
 			}
 			else
 			{
-				// TODO: Test this... it was just copied and pasted in mostly.
-				$post_row['POST_SUBJECT'] .= $this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED');
+				// TODO: Rewrite this from 3.0-compat to 3.1-compat code, it doesn't work currently.
+				//$post_row['POST_SUBJECT'] .= $this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED');
+
+				// Fallback for now
+				$post_row['POST_SUBJECT'] .= sprintf(
+					'<span style="color: #00CC00;">%2s</span>', '[SOLVED]'
+				);
 			}
 		}
 

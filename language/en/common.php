@@ -25,4 +25,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_SOLVED'			=> 'Topic is solved',
 	'SET_TOPIC_SOLVED'		=> 'Accept this answer',
 	'SET_TOPIC_NOT_SOLVED'	=> 'Set topic as unsolved',
+
+	'BAD_METHOD_CALL'	    => 'Invalid argument passed to method "%s".',
 ));
