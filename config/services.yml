@@ -3,12 +3,10 @@ services:
         class: tierra\topicsolved\controller\main_controller
         arguments:
             - @config
-            - @config_text
             - @controller.helper
             - @dbal.conn
             - @request
             - @template
-            - @user
             - %core.root_path%
             - %core.php_ext%
     tierra.topicsolved.listener:

@@ -10,6 +10,8 @@
 
 namespace tierra\topicsolved\tests\controller;
 
+use tierra\topicsolved\controller\main_controller;
+
 /**
  * Test all tierra\topicsolved\controller\main_controller actions.
  *
@@ -40,7 +42,7 @@ class main_controller_test extends \phpbb_database_test_case
 	 */
 	public function getDataSet()
 	{
-		//return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/main_controller.xml');
+		return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/users.xml');
 	}
 
 	/**
@@ -54,5 +56,64 @@ class main_controller_test extends \phpbb_database_test_case
 
 		$this->db = $this->new_dbal();
 		$this->config = new \phpbb\config\config(array());
+	}
+
+	/**
+	 * Create the main_controller
+	 */
+	protected function get_controller($user_id, $mode)
+	{
+		global $phpbb_root_path, $phpEx;
+
+		$user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$user->data['user_id'] = $user_id;
+
+		$request = $this->getMock('\phpbb\request\request');
+		$request->expects($this->any())
+			->method('variable')
+			->with($this->anything())
+			->will($this->returnValueMap(
+				array(
+					array('hash', '', false, \phpbb\request\request_interface::REQUEST, generate_link_hash($mode))
+				)
+			));
+
+		// Mock the controller helper and return render response object
+		$controller_helper = $this->getMockBuilder('\phpbb\controller\helper')
+			->disableOriginalConstructor()
+			->getMock();
+		$controller_helper->expects($this->any())
+			->method('render')
+			->willReturnCallback(function ($template_file, $page_title = '', $status_code = 200, $display_online_list = false) {
+					return new \Symfony\Component\HttpFoundation\Response($template_file, $status_code);
+				});
+
+		// Mock the template
+		$template = $this->getMockBuilder('\phpbb\template\template')
+			->getMock();
+
+		return new main_controller(
+			$this->config,
+			$controller_helper,
+			$this->db,
+			$request,
+			$template,
+			$phpbb_root_path,
+			$phpEx
+		);
+	}
+
+	/**
+	 * Test the controller response under normal conditions.
+	 */
+	public function test_controller()
+	{
+		$controller = $this->get_controller(1, 'solve');
+
+		$response = $controller->solve(1, 1);
+
+		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
+		$this->assertEquals(302, $response->getStatusCode());
+		//$this->assertEquals($content, $response->getContent());
 	}
 }

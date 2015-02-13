@@ -22,9 +22,6 @@ class main_controller
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\config\db_text */
-	protected $config_text;
-
 	/** @var \phpbb\controller\helper */
 	protected $helper;
 
@@ -36,9 +33,6 @@ class main_controller
 
 	/** @var \phpbb\template\template */
 	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
 
 	/** @var string core.root_path */
 	protected $root_path;
@@ -55,27 +49,22 @@ class main_controller
 	 * @param \phpbb\db\driver\driver_interface $db Database object
 	 * @param \phpbb\request\request $request Request object
 	 * @param \phpbb\template\template $template
-	 * @param \phpbb\user $user
 	 * @param string $root_path core.root_path
 	 * @param string $php_ext core.php_ext
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
-		\phpbb\config\db_text $config_text,
 		\phpbb\controller\helper $helper,
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\request\request $request,
 		\phpbb\template\template $template,
-		\phpbb\user $user,
 		$root_path, $php_ext)
 	{
 		$this->config = $config;
-		$this->config_text = $config_text;
 		$this->helper = $helper;
 		$this->db = $db;
 		$this->request = $request;
 		$this->template = $template;
-		$this->user = $user;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 	}
