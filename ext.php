@@ -13,7 +13,7 @@ namespace tierra\topicsolved;
 /**
  * Extension enable, disable, and purge triggers.
  *
- * @package tierra\topicsolved
+ * @package tierra/topicsolved
  */
 class ext extends \phpbb\extension\base
 {
