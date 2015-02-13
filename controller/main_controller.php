@@ -10,6 +10,8 @@
 
 namespace tierra\topicsolved\controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Main extension controller.
  *
@@ -38,6 +40,12 @@ class main_controller
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var string core.root_path */
+	protected $root_path;
+
+	/** @var string core.php_ext */
+	protected $php_ext;
+
 	/**
 	 * Constructor
 	 *
@@ -48,6 +56,8 @@ class main_controller
 	 * @param \phpbb\request\request $request Request object
 	 * @param \phpbb\template\template $template
 	 * @param \phpbb\user $user
+	 * @param string $root_path core.root_path
+	 * @param string $php_ext core.php_ext
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
@@ -56,7 +66,8 @@ class main_controller
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\request\request $request,
 		\phpbb\template\template $template,
-		\phpbb\user $user)
+		\phpbb\user $user,
+		$root_path, $php_ext)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
@@ -65,17 +76,47 @@ class main_controller
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
+		$this->root_path = $root_path;
+		$this->php_ext = $php_ext;
 	}
 
 	/**
-	 * Main controller for route /topicsolved/{name}
+	 * Mark a post as solving the topic.
 	 *
-	 * @param string $name
+	 * Route: /topicsolved/solve/{forum_id}/{post_id}
+	 *
+	 * @param int $forum_id Forum the post belongs to.
+	 * @param int $post_id Post to mark as solved.
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function handle($name)
+	public function solve($forum_id, $post_id)
 	{
-		return $this->helper->render('tierra_body.html', $name);
+		// TODO: Mark post as solved.
+
+		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
+			"f=$forum_id&amp;t=$post_id&amp;p=$post_id") . '#p' . $post_id;
+
+		return new RedirectResponse($post_url);
+	}
+
+	/**
+	 * Mark a post as not solving the topic.
+	 *
+	 * Route: /topicsolved/unsolve/{forum_id}/{post_id}
+	 *
+	 * @param int $forum_id Forum the post belongs to.
+	 * @param int $post_id Post to remove solved mark.
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function unsolve($forum_id, $post_id)
+	{
+		// TODO: Mark post as unsolved.
+
+		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
+				"f=$forum_id&amp;t=$post_id&amp;p=$post_id") . '#p' . $post_id;
+
+		return new RedirectResponse($post_url);
 	}
 }

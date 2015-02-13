@@ -9,11 +9,15 @@ services:
             - @request
             - @template
             - @user
+            - %core.root_path%
+            - %core.php_ext%
     tierra.topicsolved.listener:
         class: tierra\topicsolved\event\main_listener
         arguments:
             - @controller.helper
             - @template
+            - @user
+            - @auth
             - %core.root_path%
             - %core.php_ext%
         tags:

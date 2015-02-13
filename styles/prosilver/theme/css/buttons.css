@@ -1,0 +1,9 @@
+.topicsolved-icon.icon-button:before,
+.topicsolved-icon.dropdown-select:after {
+	background-image: url("../images/topicsolved_icons_button.png");
+}
+
+.solve-icon:before          { background-position: -0px 0; }
+.solve-icon:hover:before    { background-position: -0px -12px; }
+.unsolve-icon:before        { background-position: -12px 0; }
+.unsolve-icon:hover:before  { background-position: -12px -12px; }
