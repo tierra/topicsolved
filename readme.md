@@ -2,8 +2,8 @@
 
 Allows posting questions, and accepting answers as solved.
 
-[![Build Status](https://travis-ci.org/tierra/topicsolved.svg?branch=master)](https://travis-ci.org/tierra/topicsolved)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tierra/topicsolved/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tierra/topicsolved/?branch=master)
+[![Travis](https://img.shields.io/travis/tierra/topicsolved.svg)](https://travis-ci.org/tierra/topicsolved)
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/tierra/topicsolved.svg)](https://scrutinizer-ci.com/g/tierra/topicsolved/?branch=master)
 
 ## Quick Install
 
