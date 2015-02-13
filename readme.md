@@ -2,6 +2,9 @@
 
 Allows posting questions, and accepting answers as solved.
 
+[![Build Status](https://travis-ci.org/tierra/topicsolved.svg?branch=master)](https://travis-ci.org/tierra/topicsolved)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tierra/topicsolved/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tierra/topicsolved/?branch=master)
+
 ## Quick Install
 
 You can install this on the latest release of phpBB by following the steps below:
