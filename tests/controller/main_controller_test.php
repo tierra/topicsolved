@@ -10,6 +10,8 @@
 
 namespace tierra\topicsolved\tests\controller;
 
+require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
+
 use tierra\topicsolved\controller\main_controller;
 
 /**
@@ -63,7 +65,9 @@ class main_controller_test extends \phpbb_database_test_case
 	 */
 	protected function get_controller($user_id, $mode)
 	{
-		global $phpbb_root_path, $phpEx;
+		global $phpbb_dispatcher, $phpbb_root_path, $phpEx;
+
+		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 
 		$user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$user->data['user_id'] = $user_id;
