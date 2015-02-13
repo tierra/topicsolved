@@ -208,7 +208,7 @@ class main_listener implements EventSubscriberInterface
 
 		$post_row = $event['post_row'];
 
-		if($ok_solve && !$topic_data['topic_solved'])
+		if ($ok_solve && !$topic_data['topic_solved'])
 		{
 			$post_row['U_SET_SOLVED'] = $this->helper->route(
 				'tierra_topicsolved_controller_solve', array(
