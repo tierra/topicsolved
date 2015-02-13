@@ -201,7 +201,8 @@ class main_listener implements EventSubscriberInterface
 		}
 
 		// Disallow (un)solving topic if post is global.
-		if ($topic_data['topic_type'] == POST_GLOBAL) {
+		if ($topic_data['topic_type'] == POST_GLOBAL)
+		{
 			$ok_solve = false;
 			$ok_unsolve = false;
 		}
@@ -217,7 +218,7 @@ class main_listener implements EventSubscriberInterface
 				)
 			);
 		}
-		else if($ok_unsolve && $topic_data['topic_solved'])
+		else if ($ok_unsolve && $topic_data['topic_solved'])
 		{
 			$post_row['U_SET_SOLVED'] = $this->helper->route(
 				'tierra_topicsolved_controller_unsolve', array(
