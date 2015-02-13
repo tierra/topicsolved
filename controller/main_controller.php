@@ -95,7 +95,7 @@ class main_controller
 		// TODO: Mark post as solved.
 
 		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
-			"f=$forum_id&amp;t=$post_id&amp;p=$post_id") . '#p' . $post_id;
+			"f=$forum_id&t=$post_id&p=$post_id") . '#p' . $post_id;
 
 		return new RedirectResponse($post_url);
 	}
@@ -115,7 +115,7 @@ class main_controller
 		// TODO: Mark post as unsolved.
 
 		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
-				"f=$forum_id&amp;t=$post_id&amp;p=$post_id") . '#p' . $post_id;
+			"f=$forum_id&t=$post_id&p=$post_id") . '#p' . $post_id;
 
 		return new RedirectResponse($post_url);
 	}
