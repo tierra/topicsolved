@@ -44,7 +44,6 @@ class main_controller
 	 * Constructor
 	 *
 	 * @param \phpbb\config\config $config
-	 * @param \phpbb\config\db_text $config_text DB text object
 	 * @param \phpbb\controller\helper $helper
 	 * @param \phpbb\db\driver\driver_interface $db Database object
 	 * @param \phpbb\request\request $request Request object
@@ -70,38 +69,19 @@ class main_controller
 	}
 
 	/**
-	 * Mark a post as solving the topic.
+	 * Mark a topic as solved or unsolved.
 	 *
-	 * Route: /topicsolved/solve/{forum_id}/{post_id}
+	 * Route: /topicsolved/mark/{solve}/{forum_id}/{post_id}
 	 *
+	 * @param int $solve Either "solved" or "unsolved".
 	 * @param int $forum_id Forum the post belongs to.
-	 * @param int $post_id Post to mark as solved.
+	 * @param int $post_id Post to mark.
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function solve($forum_id, $post_id)
+	public function mark($solve, $forum_id, $post_id)
 	{
 		// TODO: Mark post as solved.
-
-		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
-			"f=$forum_id&t=$post_id&p=$post_id") . '#p' . $post_id;
-
-		return new RedirectResponse($post_url);
-	}
-
-	/**
-	 * Mark a post as not solving the topic.
-	 *
-	 * Route: /topicsolved/unsolve/{forum_id}/{post_id}
-	 *
-	 * @param int $forum_id Forum the post belongs to.
-	 * @param int $post_id Post to remove solved mark.
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function unsolve($forum_id, $post_id)
-	{
-		// TODO: Mark post as unsolved.
 
 		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
 			"f=$forum_id&t=$post_id&p=$post_id") . '#p' . $post_id;

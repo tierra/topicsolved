@@ -1,12 +1,7 @@
-tierra_topicsolved_controller_solve:
-    path: /topicsolved/solve/{forum_id}/{post_id}
-    defaults: { _controller: tierra.topicsolved.controller:solve }
+tierra_topicsolved_controller_mark:
+    path: /topicsolved/mark/{solve}/{forum_id}/{post_id}
+    defaults: { _controller: tierra.topicsolved.controller:mark }
     requirements:
-        forum_id: \d+
-        post_id: \d+
-tierra_topicsolved_controller_unsolve:
-    path: /topicsolved/unsolve/{forum_id}/{post_id}
-    defaults: { _controller: tierra.topicsolved.controller:unsolve }
-    requirements:
+        solve: solved|unsolved
         forum_id: \d+
         post_id: \d+

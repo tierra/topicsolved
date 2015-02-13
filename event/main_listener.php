@@ -176,25 +176,12 @@ class main_listener implements EventSubscriberInterface
 		$topic_data = $event['topic_data'];
 		$post_row = $event['post_row'];
 
-		if ($this->topicsolved->user_can_solve_post('solved', $topic_data) &&
-			!$topic_data['topic_solved'])
+		$url_set_solved = $this->get_url_set_solved(
+			$topic_data, $event['row']['post_id']);
+
+		if (!empty($url_set_solved))
 		{
-			$post_row['U_SET_SOLVED'] = $this->helper->route(
-				'tierra_topicsolved_controller_solve', array(
-					'forum_id' => (int) $topic_data['forum_id'],
-					'post_id' => (int) $event['row']['post_id'],
-				)
-			);
-		}
-		else if ($this->topicsolved->user_can_solve_post('unsolved', $topic_data) &&
-			$topic_data['topic_solved'])
-		{
-			$post_row['U_SET_SOLVED'] = $this->helper->route(
-				'tierra_topicsolved_controller_unsolve', array(
-					'forum_id' => (int) $topic_data['forum_id'],
-					'post_id' => (int) $event['row']['post_id'],
-				)
-			);
+			$post_row['U_SET_SOLVED'] = $url_set_solved;
 		}
 
 		if (!empty($topic_data['topic_solved']))
@@ -235,5 +222,41 @@ class main_listener implements EventSubscriberInterface
 		}
 
 		$event['post_row'] = $post_row;
+	}
+
+	/**
+	 * Returns URL to action for setting a post as solved/unsolved.
+	 *
+	 * @param array $topic_data Forum topic data.
+	 * @param string $post_id Post ID
+	 *
+	 * @return string URL to action for solving/unsolving post.
+	 */
+	protected function get_url_set_solved($topic_data, $post_id)
+	{
+		if ($this->topicsolved->user_can_solve_post('solved', $topic_data) &&
+			!$topic_data['topic_solved'])
+		{
+			return $this->helper->route('tierra_topicsolved_controller_mark',
+				array(
+					'solve' => 'solved',
+					'forum_id' => (int) $topic_data['forum_id'],
+					'post_id' => (int) $post_id,
+				)
+			);
+		}
+		else if ($this->topicsolved->user_can_solve_post('unsolved', $topic_data) &&
+			$topic_data['topic_solved'])
+		{
+			return $this->helper->route('tierra_topicsolved_controller_mark',
+				array(
+					'solve' => 'unsolved',
+					'forum_id' => (int) $topic_data['forum_id'],
+					'post_id' => (int) $post_id,
+				)
+			);
+		}
+
+		return '';
 	}
 }

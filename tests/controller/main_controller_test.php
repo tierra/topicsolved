@@ -62,6 +62,11 @@ class main_controller_test extends \phpbb_database_test_case
 
 	/**
 	 * Create the main_controller
+	 *
+	 * @param int $user_id Fixture user ID to use for test request.
+	 * @param string $mode Controller action to test.
+	 *
+	 * @return \tierra\topicsolved\controller\main_controller
 	 */
 	protected function get_controller($user_id, $mode)
 	{

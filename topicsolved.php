@@ -49,6 +49,9 @@ class topicsolved
 	 * @param string $solved Either "solved" or "unsolved".
 	 * @param array $topic_data Topic to be solved or unsolved.
 	 *
+	 * @throws \phpbb\exception\runtime_exception
+	 *         if an invalid solved parameter is specified.
+	 *
 	 * @return bool User is authorized to (un)solve topic.
 	 */
 	public function user_can_solve_post($solved, $topic_data)

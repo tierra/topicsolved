@@ -28,14 +28,4 @@ class ext extends \phpbb\extension\base
 
 		return version_compare($config['version'], '3.1.3', '>=');
 	}
-
-	/**
-	 * Enable the extension.
-	 *
-	 * @return bool
-	 */
-	function enable_step($old_state)
-	{
-		return parent::enable_step($old_state);
-	}
 }
