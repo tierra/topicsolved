@@ -117,9 +117,9 @@ class main_controller_test extends \phpbb_database_test_case
 	 */
 	public function test_controller()
 	{
-		$controller = $this->get_controller(1, 'solve');
+		$controller = $this->get_controller(1, 'mark');
 
-		$response = $controller->solve(1, 1);
+		$response = $controller->mark('solved', 1, 1);
 
 		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
 		$this->assertEquals(302, $response->getStatusCode());

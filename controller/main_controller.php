@@ -73,7 +73,7 @@ class main_controller
 	 *
 	 * Route: /topicsolved/mark/{solve}/{forum_id}/{post_id}
 	 *
-	 * @param int $solve Either "solved" or "unsolved".
+	 * @param string $solve Either "solved" or "unsolved".
 	 * @param int $forum_id Forum the post belongs to.
 	 * @param int $post_id Post to mark.
 	 *
