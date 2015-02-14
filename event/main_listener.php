@@ -81,6 +81,8 @@ class main_listener implements EventSubscriberInterface
 		return array(
 			'core.viewforum_modify_topicrow'
 				=> 'viewforum_modify_topicrow',
+			'core.search_modify_tpl_ary'
+			=> 'search_modify_tpl_ary',
 			'core.viewtopic_assign_template_vars_before'
 				=> 'viewtopic_assign_template_vars_before',
 			'core.viewtopic_modify_post_row'
@@ -89,7 +91,7 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Assign topic solved view data for forum topics.
+	 * Append solved indicator to forum topics.
 	 *
 	 * @param \phpbb\event\data $event Topic row data being rendered.
 	 *
@@ -97,47 +99,88 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function viewforum_modify_topicrow($event)
 	{
-		if ($event['row']['topic_solved'] && $event['row']['topic_type'] != POST_GLOBAL)
+		$topic_row = $event['topic_row']; // Template variables
+
+		$title = $this->get_solved_topic_title($event['row']);
+		$topic_row['TOPIC_TITLE'] .= $title;
+
+		$event['topic_row'] = $topic_row;
+	}
+
+	/**
+	 * Append solved indicator to posts and topics in search results.
+	 *
+	 * @param \phpbb\event\data $event Search results data being rendered.
+	 *
+	 * @return void
+	 */
+	public function search_modify_tpl_ary($event)
+	{
+		$tpl_ary = $event['tpl_ary']; // Template variables
+
+		$title = $this->get_solved_topic_title($event['row'], $event['show_results']);
+		$tpl_ary['TOPIC_TITLE'] .= $title;
+		$tpl_ary['POST_SUBJECT'] .= $title;
+
+		$event['tpl_ary'] = $tpl_ary;
+	}
+
+	/**
+	 * Format and return topic solved data for templates in topic list views.
+	 *
+	 * @param array $row Raw topic row data from database.
+	 * @param string $style Style indicator for "posts" or "topics" pages.
+	 *
+	 * @return string Solved indicator markup to append to title.
+	 */
+	protected function get_solved_topic_title($row, $style = 'topics')
+	{
+		if (empty($row['topic_solved']) || $row['topic_type'] == POST_GLOBAL)
 		{
-			$row = $event['row'];
-			$topic_row = $event['topic_row'];
+			return '';
+		}
 
-			// TODO: Add support for custom text/icon solved indicator.
-			// TODO: Add support for custom style.
+		// TODO: Add support for custom text/icon solved indicator.
+		// TODO: Add support for custom style.
 
-			$view_topic_url_params = 'f=' . $row['forum_id'] . '&amp;t=' . $row['topic_id'];
-			$solved_post_url = append_sid(
-					"{$this->root_path}viewtopic.{$this->php_ext}",
-					$view_topic_url_params . '&amp;p=' . $row['topic_solved']
-				) . '#p' . $row['topic_solved'];
+		$solved_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
+			"f={$row['forum_id']}&amp;t={$row['topic_id']}&amp;p={$row['topic_solved']}"
+			) . '#p' . $row['topic_solved'];
 
-			$topic_row['TOPIC_TITLE'] .= '</a>&nbsp;&nbsp;';
-			$link_html = '<a href="%s" class="topictitle" style="%s">%s';
+		$markup = '</a>&nbsp;<a href="%s"';
 
-			if (!empty($row['forum_solve_text']))
+		if ($style == 'topics')
+		{
+			$markup .= ' class="topictitle" style="%s">%s';
+		}
+		else
+		{
+			$markup .= ' style="%s">%s';
+		}
+
+		if (!empty($row['forum_solve_text']))
+		{
+			if (!empty($row['forum_solve_color']))
 			{
-				if (!empty($row['forum_solve_color']))
-				{
-					$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url,
-						"color: #{$row['forum_solve_color']};", $row['forum_solve_text']);
-				}
-				else
-				{
-					$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, '', $row['forum_solve_text']);
-				}
+				$title = sprintf($markup, $solved_url,
+					"color: #{$row['forum_solve_color']};", $row['forum_solve_text']);
 			}
 			else
 			{
-				// TODO: Rewrite this from 3.0-compat to 3.1-compat code, it doesn't work currently.
-				//$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, '',
-				//	$this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED'));
-
-				// Fallback for now
-				$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, 'color: #00CC00;', '[SOLVED]');
+				$title = sprintf($markup, $solved_url, '', $row['forum_solve_text']);
 			}
-
-			$event['topic_row'] = $topic_row;
 		}
+		else
+		{
+			// TODO: Rewrite this from 3.0-compat to 3.1-compat code, it doesn't work currently.
+			//$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, '',
+			//	$this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED'));
+
+			// Fallback for now
+			$title = sprintf($markup, $solved_url, 'color: #00CC00;', '[SOLVED]');
+		}
+
+		return $title;
 	}
 
 	/**
