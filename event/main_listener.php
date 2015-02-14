@@ -120,7 +120,11 @@ class main_listener implements EventSubscriberInterface
 
 		$title = $this->get_solved_topic_title($event['row'], $event['show_results']);
 		$tpl_ary['TOPIC_TITLE'] .= $title;
-		$tpl_ary['POST_SUBJECT'] .= $title;
+
+		if (!empty($tpl_ary['POST_SUBJECT']))
+		{
+			$tpl_ary['POST_SUBJECT'] .= $title;
+		}
 
 		$event['tpl_ary'] = $tpl_ary;
 	}
