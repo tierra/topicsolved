@@ -67,8 +67,6 @@ class main_listener implements EventSubscriberInterface
 		$this->auth = $auth;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
-
-		$this->user->add_lang_ext('tierra/topicsolved', 'common');
 	}
 
 	/**
@@ -287,7 +285,6 @@ class main_listener implements EventSubscriberInterface
 			return $this->helper->route('tierra_topicsolved_controller_mark',
 				array(
 					'solve' => 'solved',
-					'forum_id' => (int) $topic_data['forum_id'],
 					'post_id' => (int) $post_id,
 				)
 			);
@@ -298,7 +295,6 @@ class main_listener implements EventSubscriberInterface
 			return $this->helper->route('tierra_topicsolved_controller_mark',
 				array(
 					'solve' => 'unsolved',
-					'forum_id' => (int) $topic_data['forum_id'],
 					'post_id' => (int) $post_id,
 				)
 			);

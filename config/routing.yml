@@ -1,7 +1,6 @@
 tierra_topicsolved_controller_mark:
-    path: /topicsolved/mark/{solve}/{forum_id}/{post_id}
+    path: /topicsolved/mark/{solve}/{post_id}
     defaults: { _controller: tierra.topicsolved.controller:mark }
     requirements:
         solve: solved|unsolved
-        forum_id: \d+
         post_id: \d+
