@@ -41,6 +41,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var string core.php_ext */
 	protected $php_ext;
 
+	/** @var array Forum topic solved settings for events missing them. */
+	protected $forum_data = array();
+
 	/**
 	 * Constructor
 	 *
@@ -79,8 +82,12 @@ class main_listener implements EventSubscriberInterface
 		return array(
 			'core.viewforum_modify_topicrow'
 				=> 'modify_topicrow',
+			'core.viewforum_get_topic_ids_data'
+				=> 'viewforum_get_topic_ids_data',
 			'core.mcp_view_forum_modify_topicrow'
 				=> 'modify_topicrow',
+			'core.search_get_topic_data'
+				=> 'search_get_topic_data',
 			'core.search_modify_tpl_ary'
 				=> 'search_modify_tpl_ary',
 			'core.viewtopic_assign_template_vars_before'
@@ -109,6 +116,31 @@ class main_listener implements EventSubscriberInterface
 		$topic_row['TOPIC_TITLE'] .= $title;
 
 		$event['topic_row'] = $topic_row;
+	}
+
+	public function viewforum_get_topic_ids_data($event)
+	{
+		$data = $event['forum_data'];
+
+		$this->forum_data['forum_allow_solve']      = $data['forum_allow_solve'];
+		$this->forum_data['forum_allow_unsolve']    = $data['forum_allow_unsolve'];
+		$this->forum_data['forum_lock_solved']      = $data['forum_lock_solved'];
+		$this->forum_data['forum_solve_text']       = $data['forum_solve_text'];
+		$this->forum_data['forum_solve_color']      = $data['forum_solve_color'];
+	}
+
+	/**
+	 * Configure search results to fetch forum topic solved settings.
+	 *
+	 * @param \phpbb\event\data $event Search query to be run.
+	 *
+	 * @return void
+	 */
+	public function search_get_topic_data($event)
+	{
+		$sql_select = $event['sql_select'];
+		$sql_select .= ', f.forum_solve_text, f.forum_solve_color';
+		$event['sql_select'] = $sql_select;
 	}
 
 	/**
@@ -146,6 +178,11 @@ class main_listener implements EventSubscriberInterface
 		if (empty($row['topic_solved']) || $row['topic_type'] == POST_GLOBAL)
 		{
 			return '';
+		}
+
+		if (!empty($this->forum_data))
+		{
+			$row = array_merge($row, $this->forum_data);
 		}
 
 		// TODO: Add support for custom text/icon solved indicator.
@@ -210,8 +247,8 @@ class main_listener implements EventSubscriberInterface
 				) . '#p' . $topic_data['topic_solved'];
 
 			$this->template->assign_var('U_SOLVED_POST', $solved_post_url);
-			$this->template->assign_var('TOPIC_SOLVED_STYLE', 'color: #00AA00;');
-			$this->template->assign_var('TOPIC_SOLVED_TITLE', '[SOLVED]');
+			$this->template->assign_var('TOPIC_SOLVED_STYLE', $topic_data['forum_solve_color']);
+			$this->template->assign_var('TOPIC_SOLVED_TITLE', $topic_data['forum_solve_text']);
 		}
 	}
 

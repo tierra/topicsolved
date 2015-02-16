@@ -9,7 +9,7 @@ services:
             - @template
             - %core.root_path%
             - %core.php_ext%
-    tierra.topicsolved.listener:
+    tierra.topicsolved.event:
         class: tierra\topicsolved\event\main_listener
         arguments:
             - @tierra.topicsolved.topicsolved
@@ -19,6 +19,13 @@ services:
             - @auth
             - %core.root_path%
             - %core.php_ext%
+        tags:
+            - { name: event.listener }
+    tierra.topicsolved.event.acp_forums:
+        class: tierra\topicsolved\event\acp_forums
+        arguments:
+            - @tierra.topicsolved.topicsolved
+            - @template
         tags:
             - { name: event.listener }
     tierra.topicsolved.topicsolved:

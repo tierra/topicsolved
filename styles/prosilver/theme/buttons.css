@@ -1,6 +1,6 @@
 .topicsolved-icon.icon-button:before,
 .topicsolved-icon.dropdown-select:after {
-	background-image: url("../images/topicsolved_icons_button.png");
+	background-image: url("images/topicsolved_icons_button.png");
 }
 
 .solve-icon:before          { background-position: -0px 0; }
