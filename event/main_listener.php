@@ -78,9 +78,11 @@ class main_listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.viewforum_modify_topicrow'
-				=> 'viewforum_modify_topicrow',
+				=> 'modify_topicrow',
+			'core.mcp_view_forum_modify_topicrow'
+				=> 'modify_topicrow',
 			'core.search_modify_tpl_ary'
-			=> 'search_modify_tpl_ary',
+				=> 'search_modify_tpl_ary',
 			'core.viewtopic_assign_template_vars_before'
 				=> 'viewtopic_assign_template_vars_before',
 			'core.viewtopic_modify_post_row'
@@ -89,13 +91,17 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Append solved indicator to forum topics.
+	 * Append solved indicator to forum topics in viewforum and MCP.
+	 *
+	 * Events:
+	 * - core.viewforum_modify_topicrow
+	 * - core.mcp_view_forum_modify_topicrow
 	 *
 	 * @param \phpbb\event\data $event Topic row data being rendered.
 	 *
 	 * @return void
 	 */
-	public function viewforum_modify_topicrow($event)
+	public function modify_topicrow($event)
 	{
 		$topic_row = $event['topic_row']; // Template variables
 
