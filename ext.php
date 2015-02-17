@@ -22,7 +22,7 @@ class ext extends \phpbb\extension\base
 	 *
 	 * @return bool
 	 */
-	function is_enableable()
+	public function is_enableable()
 	{
 		$config = $this->container->get('config');
 

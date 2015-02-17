@@ -132,4 +132,3 @@ class acp_forums implements EventSubscriberInterface
 		$event['forum_data'] = $forum_data;
 	}
 }
- 
