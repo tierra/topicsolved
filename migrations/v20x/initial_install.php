@@ -29,6 +29,11 @@ namespace tierra\topicsolved\migrations\v20x;
  */
 class initial_install extends \phpbb\db\migration\migration
 {
+	static public function depends_on()
+	{
+		return array('\phpbb\db\migration\data\v31x\v313');
+	}
+
 	public function effectively_installed()
 	{
 		return $this->db_tools->sql_column_exists(
