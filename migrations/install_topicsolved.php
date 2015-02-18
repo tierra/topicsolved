@@ -18,7 +18,7 @@ class install_topicsolved extends \phpbb\db\migration\migration
 		return isset($this->config['topicsolved_version']) && version_compare($this->config['topicsolved_version'], '0.1.0', '>=');
 	}
 
-		public function update_schema()
+	public function update_schema()
 	{
 		return array(
 			'add_columns'        => array(
