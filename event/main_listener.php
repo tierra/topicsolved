@@ -118,6 +118,9 @@ class main_listener implements EventSubscriberInterface
 		$event['topic_row'] = $topic_row;
 	}
 
+	/**
+	 * @param \phpbb\event\data $event
+	 */
 	public function viewforum_get_topic_ids_data($event)
 	{
 		$data = $event['forum_data'];
