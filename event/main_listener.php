@@ -86,6 +86,8 @@ class main_listener implements EventSubscriberInterface
 				=> 'viewforum_get_topic_ids_data',
 			'core.mcp_view_forum_modify_topicrow'
 				=> 'modify_topicrow',
+			'core.search_get_posts_data'
+				=> 'search_get_posts_data',
 			'core.search_get_topic_data'
 				=> 'search_get_topic_data',
 			'core.search_modify_tpl_ary'
@@ -133,7 +135,21 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Configure search results to fetch forum topic solved settings.
+	 * Configure post search results to fetch forum topic solved settings.
+	 *
+	 * @param \phpbb\event\data $event Search query to be run.
+	 *
+	 * @return void
+	 */
+	public function search_get_posts_data($event)
+	{
+		$sql_array = $event['sql_array'];
+		$sql_array['SELECT'] .= ', f.forum_solve_text, f.forum_solve_color';
+		$event['sql_array'] = $sql_array;
+	}
+
+	/**
+	 * Configure topic search results to fetch forum topic solved settings.
 	 *
 	 * @param \phpbb\event\data $event Search query to be run.
 	 *
