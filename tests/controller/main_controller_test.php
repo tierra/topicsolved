@@ -34,7 +34,7 @@ class main_controller_test extends \phpbb_database_test_case
 	/**
 	 * Define the extension to be tested.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	static protected function setup_extensions()
 	{
@@ -100,9 +100,11 @@ class main_controller_test extends \phpbb_database_test_case
 			->getMock();
 		$controller_helper->expects($this->any())
 			->method('render')
-			->willReturnCallback(function ($template_file, $page_title = '', $status_code = 200, $display_online_list = false) {
+			->willReturnCallback(function($template_file, $page_title = '', $status_code = 200, $display_online_list = false)
+				{
 					return new \Symfony\Component\HttpFoundation\Response($template_file, $status_code);
-				});
+				}
+			);
 
 		// Mock the template
 		$template = $this->getMockBuilder('\phpbb\template\template')

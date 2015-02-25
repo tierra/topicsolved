@@ -124,7 +124,7 @@ class acp_forums implements EventSubscriberInterface
 		$forum_data = array_merge($forum_data, array(
 			'forum_allow_solve'     => request_var('forum_allow_solve', 1),
 			'forum_allow_unsolve'   => request_var('forum_allow_unsolve', 1),
-			'forum_solve_text'      => utf8_normalize_nfc(request_var('forum_solve_text', '',true)),
+			'forum_solve_text'      => utf8_normalize_nfc(request_var('forum_solve_text', '', true)),
 			'forum_solve_color'     => trim(request_var('forum_solve_color', '')),
 			'forum_lock_solved'     => request_var('forum_lock_solved', 0),
 		));
