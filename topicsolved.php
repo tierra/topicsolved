@@ -64,33 +64,30 @@ class topicsolved
 	 */
 	public function user_can_solve_post($solved, $topic_data)
 	{
-		if ($solved == 'solved')
-		{
-			$forum_permission = 'forum_allow_solve';
-		}
-		else if ($solved == 'unsolved')
-		{
-			$forum_permission = 'forum_allow_unsolve';
-		}
-		else
-		{
-			throw new \phpbb\exception\runtime_exception(
-				'BAD_METHOD_CALL', array('user_can_solve_post'));
-		}
-
 		// Disallow (un)solving topic if post is global.
 		if ($topic_data['topic_type'] == POST_GLOBAL)
 		{
 			return false;
 		}
 
-		if (($topic_data[$forum_permission] == topicsolved::TOPIC_SOLVED_MOD ||
-			$topic_data[$forum_permission] == topicsolved::TOPIC_SOLVED_YES) &&
+		$forum_permission = array(
+			'solved' => 'forum_allow_solve',
+			'unsolved' => 'forum_allow_unsolve',
+		);
+
+		if (!array_key_exists($solved, $forum_permission))
+		{
+			throw new \phpbb\exception\runtime_exception(
+				'BAD_METHOD_CALL', array('user_can_solve_post'));
+		}
+
+		if (($topic_data[$forum_permission[$solved]] == topicsolved::TOPIC_SOLVED_MOD ||
+			$topic_data[$forum_permission[$solved]] == topicsolved::TOPIC_SOLVED_YES) &&
 			$this->auth->acl_get('m_'))
 		{
 			return true;
 		}
-		else if ($topic_data[$forum_permission] == topicsolved::TOPIC_SOLVED_YES &&
+		else if ($topic_data[$forum_permission[$solved]] == topicsolved::TOPIC_SOLVED_YES &&
 			$topic_data['topic_poster'] == $this->user->data['user_id'] &&
 			$topic_data['topic_status'] == ITEM_UNLOCKED)
 		{
