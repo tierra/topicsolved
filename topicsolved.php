@@ -161,4 +161,33 @@ class topicsolved
 
 		return $result;
 	}
+
+	/**
+	 * Generate markup for the given solved indicator image.
+	 *
+	 * @param string $type One of "head", "list", or "post".
+	 * @param string $alt Language code for title and alternative text.
+	 * @param string $url Optional link to solved post.
+	 *
+	 * @return string HTML markup for image.
+	 */
+	public function image($type, $alt = '', $url = '')
+	{
+		$title = '';
+
+		$markup = $this->user->img('icon_solved_' . $type, $alt);
+
+		if (!empty($alt))
+		{
+			$alt = $this->user->lang($alt);
+			$title = ' title="' . $alt . '"';
+		}
+
+		if (!empty($url))
+		{
+			$markup = sprintf('<a href="%s"%s>%s</a>', $url, $title, $markup);
+		}
+
+		return $markup;
+	}
 }

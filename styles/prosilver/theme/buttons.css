@@ -1,3 +1,5 @@
+/* Post Buttons */
+
 .topicsolved-icon.icon-button:before,
 .topicsolved-icon.dropdown-select:after {
 	background-image: url("images/topicsolved_icons_button.png");
@@ -7,3 +9,21 @@
 .solve-icon:hover:before    { background-position: -0px -12px; }
 .unsolve-icon:before        { background-position: -12px 0; }
 .unsolve-icon:hover:before  { background-position: -12px -12px; }
+
+/* Topic Solved Image Indicators */
+
+.imageset.icon_solved_head {
+	background-image: url("./images/icon_topic_solved_head.png");
+	padding-left: 20px;
+	padding-top: 20px;
+}
+.imageset.icon_solved_list {
+	background-image: url("./images/icon_topic_solved_list.png");
+	padding-left: 12px;
+	padding-top: 12px;
+}
+.imageset.icon_solved_post {
+	background-image: url("./images/icon_topic_solved_post.png");
+	padding-left: 16px;
+	padding-top: 16px;
+}

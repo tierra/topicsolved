@@ -204,9 +204,6 @@ class main_listener implements EventSubscriberInterface
 			$row = array_merge($row, $this->forum_data);
 		}
 
-		// TODO: Add support for custom text/icon solved indicator.
-		// TODO: Add support for custom style.
-
 		$solved_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
 			"f={$row['forum_id']}&amp;t={$row['topic_id']}&amp;p={$row['topic_solved']}"
 			) . '#p' . $row['topic_solved'];
@@ -236,12 +233,7 @@ class main_listener implements EventSubscriberInterface
 		}
 		else
 		{
-			// TODO: Rewrite this from 3.0-compat to 3.1-compat code, it doesn't work currently.
-			//$topic_row['TOPIC_TITLE'] .= sprintf($link_html, $solved_post_url, '',
-			//	$this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED'));
-
-			// Fallback for now
-			$title = sprintf($markup, $solved_url, 'color: #00CC00;', '[SOLVED]');
+			$title = '&nbsp;' . $this->topicsolved->image('list', 'TOPIC_SOLVED', $solved_url);
 		}
 
 		return $title;
@@ -260,14 +252,28 @@ class main_listener implements EventSubscriberInterface
 
 		if ($topic_data['topic_solved'] && $topic_data['forum_allow_solve'] && $topic_data['topic_type'] != POST_GLOBAL)
 		{
-			$solved_post_url = append_sid(
+			$solved_url = append_sid(
 					"{$this->root_path}viewtopic.{$this->php_ext}",
 					"f={$event['forum_id']}&amp;t={$event['topic_id']}&amp;p={$topic_data['topic_solved']}"
 				) . '#p' . $topic_data['topic_solved'];
 
-			$this->template->assign_var('U_SOLVED_POST', $solved_post_url);
-			$this->template->assign_var('TOPIC_SOLVED_STYLE', $topic_data['forum_solve_color']);
-			$this->template->assign_var('TOPIC_SOLVED_TITLE', $topic_data['forum_solve_text']);
+			$this->template->assign_var('U_SOLVED_POST', $solved_url);
+
+			if (!empty($topic_data['forum_solve_text']))
+			{
+				$this->template->assign_var('TOPIC_SOLVED_TITLE', $topic_data['forum_solve_text']);
+			}
+			else
+			{
+				$this->template->assign_var('TOPIC_SOLVED_IMAGE',
+					$this->topicsolved->image('head', 'TOPIC_SOLVED')
+				);
+			}
+
+			if (!empty($topic_data['forum_solve_color']))
+			{
+				$this->template->assign_var('TOPIC_SOLVED_STYLE', $topic_data['forum_solve_color']);
+			}
 		}
 	}
 
@@ -318,13 +324,7 @@ class main_listener implements EventSubscriberInterface
 			}
 			else
 			{
-				// TODO: Rewrite this from 3.0-compat to 3.1-compat code, it doesn't work currently.
-				//$post_row['POST_SUBJECT'] .= $this->user->img('images/icon_topic_solved_post.png', 'TOPIC_SOLVED');
-
-				// Fallback for now
-				$post_row['POST_SUBJECT'] .= sprintf(
-					'<span style="color: #00CC00;">%2s</span>', '[SOLVED]'
-				);
+				$post_row['POST_SUBJECT'] .= $this->topicsolved->image('post', 'TOPIC_SOLVED');
 			}
 		}
 
