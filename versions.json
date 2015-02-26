@@ -1,0 +1,20 @@
+{
+	"stable": {
+		"2.0": {
+			"current": "2.0.0-rc1",
+			"download": "https://github.com/tierra/topicsolved/archive/2.0.0-rc1.zip",
+			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.0.0-rc1",
+			"eol": null,
+			"security": false
+		}
+	},
+	"unstable": {
+		"2.0": {
+			"current": "2.0.0-rc1",
+			"download": "https://github.com/tierra/topicsolved/archive/2.0.0-rc1.zip",
+			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.0.0-rc1",
+			"eol": null,
+			"security": false
+		}
+	}
+}
