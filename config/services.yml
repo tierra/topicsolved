@@ -3,22 +3,12 @@ services:
         class: tierra\topicsolved\controller\main_controller
         arguments:
             - @tierra.topicsolved.topicsolved
-            - @config
-            - @controller.helper
-            - @request
-            - @template
-            - %core.root_path%
-            - %core.php_ext%
     tierra.topicsolved.event:
         class: tierra\topicsolved\event\main_listener
         arguments:
             - @tierra.topicsolved.topicsolved
             - @controller.helper
             - @template
-            - @user
-            - @auth
-            - %core.root_path%
-            - %core.php_ext%
         tags:
             - { name: event.listener }
     tierra.topicsolved.event.acp_forums:
@@ -34,3 +24,5 @@ services:
             - @dbal.conn
             - @user
             - @auth
+            - %core.root_path%
+            - %core.php_ext%

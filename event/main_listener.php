@@ -29,18 +29,6 @@ class main_listener implements EventSubscriberInterface
 	/* @var \phpbb\template\template */
 	protected $template;
 
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\auth\auth */
-	protected $auth;
-
-	/** @var string core.root_path */
-	protected $root_path;
-
-	/** @var string core.php_ext */
-	protected $php_ext;
-
 	/** @var array Forum topic solved settings for events missing them. */
 	protected $forum_data = array();
 
@@ -50,26 +38,15 @@ class main_listener implements EventSubscriberInterface
 	 * @param \tierra\topicsolved\topicsolved $topicsolved Core topicsolved helper.
 	 * @param \phpbb\controller\helper $helper Controller helper object
 	 * @param \phpbb\template\template $template Template object
-	 * @param \phpbb\user $user
-	 * @param \phpbb\auth\auth $auth
-	 * @param string $root_path core.root_path
-	 * @param string $php_ext core.php_ext
 	 */
 	public function __construct(
 		topicsolved $topicsolved,
 		\phpbb\controller\helper $helper,
-		\phpbb\template\template $template,
-		\phpbb\user $user,
-		\phpbb\auth\auth $auth,
-		$root_path, $php_ext)
+		\phpbb\template\template $template)
 	{
 		$this->topicsolved = $topicsolved;
 		$this->helper = $helper;
 		$this->template = $template;
-		$this->user = $user;
-		$this->auth = $auth;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
 	}
 
 	/**
@@ -204,9 +181,8 @@ class main_listener implements EventSubscriberInterface
 			$row = array_merge($row, $this->forum_data);
 		}
 
-		$solved_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
-			"f={$row['forum_id']}&amp;t={$row['topic_id']}&amp;p={$row['topic_solved']}"
-			) . '#p' . $row['topic_solved'];
+		$solved_url = $this->topicsolved->get_link_to_post(
+			$row['forum_id'], $row['topic_id'], $row['topic_solved']);
 
 		$markup = '</a>&nbsp;<a href="%s"';
 
@@ -223,12 +199,13 @@ class main_listener implements EventSubscriberInterface
 		{
 			if (!empty($row['forum_solve_color']))
 			{
-				$title = sprintf($markup, $solved_url,
+				$title = sprintf($markup, htmlspecialchars($solved_url, ENT_QUOTES, 'UTF-8'),
 					"color: #{$row['forum_solve_color']};", $row['forum_solve_text']);
 			}
 			else
 			{
-				$title = sprintf($markup, $solved_url, '', $row['forum_solve_text']);
+				$title = sprintf($markup, htmlspecialchars($solved_url, ENT_QUOTES, 'UTF-8'),
+					'', $row['forum_solve_text']);
 			}
 		}
 		else
@@ -252,10 +229,8 @@ class main_listener implements EventSubscriberInterface
 
 		if ($topic_data['topic_solved'] && $topic_data['forum_allow_solve'] && $topic_data['topic_type'] != POST_GLOBAL)
 		{
-			$solved_url = append_sid(
-					"{$this->root_path}viewtopic.{$this->php_ext}",
-					"f={$event['forum_id']}&amp;t={$event['topic_id']}&amp;p={$topic_data['topic_solved']}"
-				) . '#p' . $topic_data['topic_solved'];
+			$solved_url = $this->topicsolved->get_link_to_post(
+				$event['forum_id'], $event['topic_id'], $topic_data['topic_solved']);
 
 			$this->template->assign_var('U_SOLVED_POST', $solved_url);
 

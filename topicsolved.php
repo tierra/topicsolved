@@ -32,21 +32,32 @@ class topicsolved
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var string core.root_path */
+	protected $root_path;
+
+	/** @var string core.php_ext */
+	protected $php_ext;
+
 	/**
 	 * Constructor
 	 *
 	 * @param \phpbb\db\driver\driver_interface $db Database object
 	 * @param \phpbb\user $user
 	 * @param \phpbb\auth\auth $auth
+	 * @param string $root_path core.root_path
+	 * @param string $php_ext core.php_ext
 	 */
 	public function __construct(
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\user $user,
-		\phpbb\auth\auth $auth)
+		\phpbb\auth\auth $auth,
+		$root_path, $php_ext)
 	{
 		$this->db = $db;
 		$this->user = $user;
 		$this->auth = $auth;
+		$this->root_path = $root_path;
+		$this->php_ext = $php_ext;
 
 		$this->user->add_lang_ext('tierra/topicsolved', 'common');
 	}
@@ -182,9 +193,25 @@ class topicsolved
 
 		if (!empty($url))
 		{
-			$markup = sprintf('<a href="%s"%s>%s</a>', $url, $title, $markup);
+			$markup = sprintf('<a href="%s"%s>%s</a>',
+				htmlspecialchars($url, ENT_QUOTES, 'UTF-8'), $title, $markup);
 		}
 
 		return $markup;
+	}
+
+	/**
+	 * Generate link to specific post (usually solution post).
+	 *
+	 * @param int $forum_id
+	 * @param int $topic_id
+	 * @param int $post_id
+	 *
+	 * @return string Relative URL to post
+	 */
+	public function get_link_to_post($forum_id, $topic_id, $post_id)
+	{
+		return append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
+			"f=$forum_id&t=$topic_id&p=$post_id") . '#p' . $post_id;
 	}
 }

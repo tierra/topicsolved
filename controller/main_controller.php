@@ -23,50 +23,14 @@ class main_controller
 	/* @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
 
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\controller\helper */
-	protected $helper;
-
-	/** @var \phpbb\request\request */
-	protected $request;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var string core.root_path */
-	protected $root_path;
-
-	/** @var string core.php_ext */
-	protected $php_ext;
-
 	/**
 	 * Constructor
 	 *
 	 * @param \tierra\topicsolved\topicsolved $topicsolved Core topicsolved helper.
-	 * @param \phpbb\config\config $config
-	 * @param \phpbb\controller\helper $helper
-	 * @param \phpbb\request\request $request Request object
-	 * @param \phpbb\template\template $template
-	 * @param string $root_path core.root_path
-	 * @param string $php_ext core.php_ext
 	 */
-	public function __construct(
-		topicsolved $topicsolved,
-		\phpbb\config\config $config,
-		\phpbb\controller\helper $helper,
-		\phpbb\request\request $request,
-		\phpbb\template\template $template,
-		$root_path, $php_ext)
+	public function __construct(topicsolved $topicsolved)
 	{
 		$this->topicsolved = $topicsolved;
-		$this->config = $config;
-		$this->helper = $helper;
-		$this->request = $request;
-		$this->template = $template;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
 	}
 
 	/**
@@ -95,8 +59,8 @@ class main_controller
 		$this->topicsolved->update_topic_solved(
 			$topic_data['topic_id'], $solved_post_id, $lock_topic);
 
-		$post_url = append_sid("{$this->root_path}viewtopic.{$this->php_ext}",
-			"f={$topic_data['forum_id']}&t=$post_id&p=$post_id") . '#p' . $post_id;
+		$post_url = $this->topicsolved->get_link_to_post(
+			$topic_data['forum_id'], $topic_data['topic_id'], $post_id);
 
 		return new RedirectResponse($post_url);
 	}
