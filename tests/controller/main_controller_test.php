@@ -82,7 +82,7 @@ class main_controller_test extends \phpbb_database_test_case
 
 		$auth = $this->getMock('\phpbb\auth\auth');
 
-		$this->topicsolved = new topicsolved($this->new_dbal(), $user, $auth);
+		$this->topicsolved = new topicsolved($this->new_dbal(), $user, $auth, $phpbb_root_path, $phpEx);
 
 		$request = $this->getMock('\phpbb\request\request');
 		$request->expects($this->any())
@@ -110,15 +110,7 @@ class main_controller_test extends \phpbb_database_test_case
 		$template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
 
-		return new main_controller(
-			$this->topicsolved,
-			$this->config,
-			$controller_helper,
-			$request,
-			$template,
-			$phpbb_root_path,
-			$phpEx
-		);
+		return new main_controller($this->topicsolved);
 	}
 
 	/**
