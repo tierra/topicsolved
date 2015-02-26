@@ -25,9 +25,6 @@ class main_controller_test extends \phpbb_database_test_case
 	/* @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
 
-	/** @var \phpbb\config\config */
-	protected $config;
-
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -59,8 +56,6 @@ class main_controller_test extends \phpbb_database_test_case
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->config = new \phpbb\config\config(array());
 	}
 
 	/**
@@ -83,32 +78,6 @@ class main_controller_test extends \phpbb_database_test_case
 		$auth = $this->getMock('\phpbb\auth\auth');
 
 		$this->topicsolved = new topicsolved($this->new_dbal(), $user, $auth, $phpbb_root_path, $phpEx);
-
-		$request = $this->getMock('\phpbb\request\request');
-		$request->expects($this->any())
-			->method('variable')
-			->with($this->anything())
-			->will($this->returnValueMap(
-				array(
-					array('hash', '', false, \phpbb\request\request_interface::REQUEST, generate_link_hash($mode))
-				)
-			));
-
-		// Mock the controller helper and return render response object
-		$controller_helper = $this->getMockBuilder('\phpbb\controller\helper')
-			->disableOriginalConstructor()
-			->getMock();
-		$controller_helper->expects($this->any())
-			->method('render')
-			->willReturnCallback(function($template_file, $page_title = '', $status_code = 200, $display_online_list = false)
-				{
-					return new \Symfony\Component\HttpFoundation\Response($template_file, $status_code);
-				}
-			);
-
-		// Mock the template
-		$template = $this->getMockBuilder('\phpbb\template\template')
-			->getMock();
 
 		return new main_controller($this->topicsolved);
 	}
