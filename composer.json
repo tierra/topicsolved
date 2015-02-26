@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Allows posting questions, and accepting answers as solved.",
 	"homepage": "https://github.com/tierra/topicsolved",
-	"version": "1.9.0",
+	"version": "2.0.0-rc1",
 	"keywords": ["phpbb", "extension", "question", "answer", "solved"],
 	"license": "GPL-2.0",
 	"authors": [
@@ -27,6 +27,11 @@
 		"display-name": "Topic Solved",
 		"soft-require": {
 			"phpbb/phpbb": "~3.1.3"
+		},
+		"version-check": {
+			"host": "tierra.github.io",
+			"directory": "/topicsolved",
+			"filename": "versions.json"
 		}
 	}
 }
