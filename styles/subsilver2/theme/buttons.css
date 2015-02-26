@@ -1,3 +1,16 @@
+/* Post Buttons */
+
+.imageset.icon_solved_set {
+	background-image: url("images/icon_topic_solved_set.png");
+	padding-left: 20px;
+	padding-top: 20px;
+}
+.imageset.icon_solved_unset {
+	background-image: url("images/icon_topic_solved_unset.png");
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
 /* Topic Solved Image Indicators */
 
 .imageset.icon_solved_head {
