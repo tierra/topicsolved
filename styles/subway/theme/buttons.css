@@ -1,0 +1,79 @@
+/* Post Buttons */
+
+.topicsolved-icon.icon-button:before,
+.topicsolved-icon.dropdown-select:after,
+.imageset.icon_solved_head:before,
+.imageset.icon_solved_list:before,
+.imageset.icon_solved_post:before {
+	font-family: 'subway-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.solve-icon:before {
+	content: "\e116";
+ }
+
+.button.solve-icon:hover {
+	background-color: #63CC33;
+	color: #FFFFFF;
+}
+
+.unsolve-icon:before {
+	content: "\e116";
+}
+
+.button.unsolve-icon:hover {
+	background-color: #F96375;
+	color: #FFFFFF;
+}
+
+/* Topic Solved Image Indicators */
+
+.imageset.icon_solved_head:before {
+	content: "\e116";
+	background-color: #63CC33;
+	color: #FFFFFF;
+	font-size: 11px;
+    padding: 4px 7px;
+    position: relative;
+    border-radius: 3px;
+    margin-left: 3px;
+    top: -4px;
+}
+.imageset.icon_solved_list:before {
+	content: "\e116";
+	background-color: #63CC33;
+	color: #FFFFFF;
+	padding: 2px 4px;
+	font-size: 10px;
+	position: relative;
+	top: -2px;
+	border-radius: 3px;
+	margin-left: 2px;
+}
+.imageset.icon_solved_post:before {
+	content: "\e116";
+	background-color: #63CC33;
+	color: #FFFFFF;
+	padding: 2px 4px;
+	position: relative;
+	top: -2px;
+	font-size: 10px;
+	border-radius: 3px;
+	margin-left: 2px;
+}
+
+.imageset.icon_solved_post:hover:before,
+.imageset.icon_solved_list:hover:before,
+.imageset.icon_solved_post:hover:before,
+.topic-title a + a:hover {
+	text-decoration: none;
+}
