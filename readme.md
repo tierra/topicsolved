@@ -48,6 +48,7 @@ style does not work correctly, you can request support for your style from the
 *   prosilver
 *   subsilver2
 *   pbtech
+*   subway
 
 ## Requirements
 
