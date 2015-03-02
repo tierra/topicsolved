@@ -70,6 +70,25 @@ You can install this extension in phpBB by following the steps below:
 6. Look for `Topic Solved` under the Disabled Extensions list, and click its
    `Enable` link.
 
+## Getting Started
+
+After enabling the extension, you must configure each individual forum you
+would like solved topic functionality to be enabled for. Under the "Forums"
+section in the Administration Control Panel, find each forum you would like to
+enable solved topics for, and click "Edit forum".
+
+Topic Solved will not work for "Category" or "Link" type forums, it will only
+work with "Forum" forum types. Once you have ensured your forum is set for the
+"Forum" type, the topic solved settings will show up in it's own section near
+the bottom of the settings form.
+
+At the minimum, you must select either "Yes" or "Moderator" for the "Allow
+topics to be marked as solved" setting in order to enable solved topics for the
+forum you wish to use this extension with.
+
+The remaining settings alter the behavior and permissions required to mark
+topics as solved or unsolved, as well as the appearance of the indicator.
+
 ## Uninstall
 
 1. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
