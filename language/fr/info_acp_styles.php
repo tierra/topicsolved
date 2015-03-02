@@ -22,7 +22,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Sujet résolu',
 	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Sujet résolu',
-	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Résolu',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Sujet résolu',
 	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Accepter cette réponse',
 	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Marquer ce sujet comme non résolu',
 ));
