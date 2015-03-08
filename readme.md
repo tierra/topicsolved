@@ -37,6 +37,7 @@ This extension comes bundled with support for the following languages:
 *    Russian (ru)
 *    Spanish (es)
 *    Swedish (sv)
+*    Turkish (tr)
 
 ## Supported Styles
 
