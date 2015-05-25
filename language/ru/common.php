@@ -19,14 +19,14 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'SEARCH_UNSOLVED' => 'Просмотреть нерешенные темы',
-	'SEARCH_YOUR_UNSOLVED' => 'Просмотреть ваши нерешенные темы',
-	'SEARCH_SOLVED' => 'Искать только решенные темы',
-	'TOPIC_SOLVED' => 'Тема решена',
-	'SET_TOPIC_SOLVED' => 'Принять в качестве ответа',
-	'SET_TOPIC_NOT_SOLVED' => 'Отметить тему как нерешенную',
-	'BAD_METHOD_CALL' => 'Неверный аргумент "%s".',
-	'FORBIDDEN_MARK_SOLVED' => 'Вам не разрешено отмечать тему решенной или нерешенной.',
-	'TOPIC_ALREADY_SOLVED' => 'Тема уже помечена как решенная.',
-	'TOPIC_ALREADY_UNSOLVED' => 'Тема уже отмечена как нерешенная.',
+	'SEARCH_UNSOLVED'		=> 'Просмотреть нерешённые темы',
+	'SEARCH_YOUR_UNSOLVED'		=> 'Просмотреть ваши нерешённые темы',
+	'SEARCH_SOLVED'			=> 'Искать только решённые темы',
+	'TOPIC_SOLVED'			=> 'Тема решена',
+	'SET_TOPIC_SOLVED'		=> 'Принять в качестве ответа',
+	'SET_TOPIC_NOT_SOLVED'		=> 'Отметить тему как нерешённую',
+	'BAD_METHOD_CALL'		=> 'Неверный аргумент "%s".',
+	'FORBIDDEN_MARK_SOLVED'		=> 'Вам не разрешено отмечать тему решённой или нерешённой.',
+	'TOPIC_ALREADY_SOLVED'		=> 'Тема уже помечена как решённая.',
+	'TOPIC_ALREADY_UNSOLVED'	=> 'Тема уже отмечена как нерешённая.',
 ));
