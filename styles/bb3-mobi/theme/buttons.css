@@ -1,0 +1,15 @@
+.icon_solved_list,
+.icon_solved_post,
+.icon_solved_head {
+	quotes: "[" "]";
+}
+.icon_solved_list:before,
+.icon_solved_post:before,
+.icon_solved_head:before {
+	content: open-quote;
+}
+.icon_solved_list:after,
+.icon_solved_post:after,
+.icon_solved_head:after {
+	content: close-quote;
+}
