@@ -32,4 +32,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOR'         => 'Couleur du texte ',
 	'FORUM_SOLVE_COLOR_EXPLAIN' => 'Choisissez une couleur pour le texte en utilisant un code hexadécimal (exemple : FFFF80), laissez ce champ vide pour utiliser la couleur par défaut.',
 	'YES_MOD'                   => 'Oui, que le modérateur',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Sujet résolu',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Sujet résolu',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Sujet résolu',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Accepter cette réponse',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Marquer ce sujet comme non résolu',
 ));

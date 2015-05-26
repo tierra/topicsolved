@@ -32,4 +32,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOR'         => 'Kleur van de tekst',
 	'FORUM_SOLVE_COLOR_EXPLAIN' => 'Kies hier een kleur voor je tekst, als je dit veld leeg laat wordt de standaard kleur gebruikt.',
 	'YES_MOD'                   => 'Ja, alleen door moderators',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Onderwerp is opgelost',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Onderwerp is opgelost',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Onderwerp is opgelost',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Accepteer dit antwoord',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Markeer topic als onopgelost',
 ));

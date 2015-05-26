@@ -31,4 +31,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOR'         => 'テキストの色',
 	'FORUM_SOLVE_COLOR_EXPLAIN' => 'テキストの色を選択します。空白にするとデフォルトカラーを使用します。',
 	'YES_MOD'                   => 'はい、モデレーター',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => '解決済',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => '解決済',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => '解決済',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'この回答を受け入れる',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'トピックを未解決としてマーク',
 ));

@@ -31,4 +31,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOR'         => 'Metin için renk',
 	'FORUM_SOLVE_COLOR_EXPLAIN' => 'Metin için bir renk seçin. Varsayılan rengi kullanmak için boş bırakın.',
 	'YES_MOD'                   => 'Evet, moderatör',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Konu Çözüldü',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Konu Çözüldü',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Konu Çözüldü',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Bu cevabı kabul et',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Konuyu çözülmedi olarak işaretle',
 ));

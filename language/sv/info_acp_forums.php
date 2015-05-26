@@ -32,4 +32,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOR'         => 'Textfärg',
 	'FORUM_SOLVE_COLOR_EXPLAIN' => 'Välj textfärg. Lämna tomt för att använda standardfärgen.',
 	'YES_MOD'                   => 'Ja, moderator',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Ämnet har lösts',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Ämnet har lösts',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Ämnet har lösts',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Välj svar som lösning',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Markera ämnet som olöst',
 ));
