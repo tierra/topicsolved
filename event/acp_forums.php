@@ -34,10 +34,12 @@ class acp_forums implements EventSubscriberInterface
 	 */
 	public function __construct(
 		topicsolved $topicsolved,
-		\phpbb\template\template $template)
+		\phpbb\template\template $template,
+		\phpbb\user $user)
 	{
 		$this->topicsolved = $topicsolved;
 		$this->template = $template;
+		$user->add_lang_ext('tierra/topicsolved', 'info_acp_forums');
 	}
 
 	/**

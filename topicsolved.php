@@ -151,13 +151,18 @@ class topicsolved
 	 *
 	 * @return mixed true if successful
 	 */
-	public function update_topic_solved($topic_id, $post_id, $lock = false)
+	public function update_topic_solved($topic_id, $post_id, $lock = false, $was_locked = false)
 	{
 		$data = array('topic_solved' => $post_id);
 
 		if ($lock)
 		{
 			$data['topic_status'] = ITEM_LOCKED;
+		}
+
+		if (!$lock && $was_locked)
+		{
+			$data['topic_status'] = ITEM_UNLOCKED;
 		}
 
 		$update_sql = $this->db->sql_build_array('UPDATE', $data);
