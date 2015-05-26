@@ -19,9 +19,9 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Тема решена',
-	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Тема решена',
-	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Тема решена',
-	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Принять в качестве ответа',
-	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Отметить тему как нерешенную',
+	'IMG_ICON_TOPIC_SOLVED_HEAD'	=> 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_LIST'	=> 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_POST'	=> 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_SET'		=> 'Принять в качестве ответа',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'	=> 'Отметить тему как нерешённую',
 ));

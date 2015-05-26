@@ -55,12 +55,16 @@ class main_controller
 		$this->check_solve_conditions($solve, $topic_data);
 
 		$lock_topic = (bool) $topic_data['forum_lock_solved'];
+		$was_locked = false;
+		if ($topic_data['topic_status'] && $lock_topic)
+		{
+			$lock_topic = false;
+			$was_locked = true;
+		}
 		$solved_post_id = $solve == 'solved' ? $post_id : 0;
-		$this->topicsolved->update_topic_solved(
-			$topic_data['topic_id'], $solved_post_id, $lock_topic);
+		$this->topicsolved->update_topic_solved($topic_data['topic_id'], $solved_post_id, $lock_topic, $was_locked);
 
-		$post_url = $this->topicsolved->get_link_to_post(
-			$topic_data['forum_id'], $topic_data['topic_id'], $post_id);
+		$post_url = $this->topicsolved->get_link_to_post($topic_data['forum_id'], $topic_data['topic_id'], $post_id);
 
 		return new RedirectResponse($post_url);
 	}
