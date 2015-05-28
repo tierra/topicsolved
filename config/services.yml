@@ -16,6 +16,7 @@ services:
         arguments:
             - @tierra.topicsolved.topicsolved
             - @template
+            - @request
         tags:
             - { name: event.listener }
     tierra.topicsolved.topicsolved:

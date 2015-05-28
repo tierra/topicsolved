@@ -128,7 +128,7 @@ class topicsolved
 				TOPICS_TABLE => 't',
 			),
 			'WHERE' =>
-				'p.post_id = ' . $this->db->sql_escape($post_id) .
+				'p.post_id = ' . (int) $post_id .
 				' AND t.topic_id = p.topic_id AND f.forum_id = t.forum_id',
 		);
 		$select_sql = $this->db->sql_build_query('SELECT', $select_sql_array);
@@ -164,7 +164,7 @@ class topicsolved
 		$result = $this->db->sql_query('
 			UPDATE ' . TOPICS_TABLE . '
 			SET ' . $update_sql . '
-			WHERE topic_id = ' . $topic_id
+			WHERE topic_id = ' . (int) $topic_id
 		);
 
 		return $result;

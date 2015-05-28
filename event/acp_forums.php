@@ -26,6 +26,9 @@ class acp_forums implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
+	/** @var \phpbb\request\request */
+	protected $request;
+
 	/**
 	 * Constructor
 	 *
@@ -34,10 +37,12 @@ class acp_forums implements EventSubscriberInterface
 	 */
 	public function __construct(
 		topicsolved $topicsolved,
-		\phpbb\template\template $template)
+		\phpbb\template\template $template,
+		\phpbb\request\request $request)
 	{
 		$this->topicsolved = $topicsolved;
 		$this->template = $template;
+		$this->request = $request;
 	}
 
 	/**
@@ -103,8 +108,6 @@ class acp_forums implements EventSubscriberInterface
 			'FORUM_SOLVE_IMG' => '',
 			'TOPIC_SOLVED_YES' => topicsolved::TOPIC_SOLVED_YES,
 			'TOPIC_SOLVED_MOD' => topicsolved::TOPIC_SOLVED_MOD,
-			// TODO: Re-implement color swatch picker.
-			//'U_SOLVE_SWATCH' => append_sid("{$phpbb_admin_path}swatch.$phpEx", 'form=forumedit&amp;name=forum_solve_color'),
 		));
 
 		$event['template_data'] = $template_data;
@@ -122,11 +125,11 @@ class acp_forums implements EventSubscriberInterface
 		$forum_data = $event['forum_data'];
 
 		$forum_data = array_merge($forum_data, array(
-			'forum_allow_solve'     => request_var('forum_allow_solve', 1),
-			'forum_allow_unsolve'   => request_var('forum_allow_unsolve', 1),
-			'forum_solve_text'      => utf8_normalize_nfc(request_var('forum_solve_text', '', true)),
-			'forum_solve_color'     => trim(request_var('forum_solve_color', '')),
-			'forum_lock_solved'     => request_var('forum_lock_solved', 0),
+			'forum_allow_solve'     => $this->request->variable('forum_allow_solve', 1),
+			'forum_allow_unsolve'   => $this->request->variable('forum_allow_unsolve', 1),
+			'forum_solve_text'      => $this->request->variable('forum_solve_text', '', true),
+			'forum_solve_color'     => $this->request->variable('forum_solve_color', ''),
+			'forum_lock_solved'     => $this->request->variable('forum_lock_solved', 0),
 		));
 
 		$event['forum_data'] = $forum_data;

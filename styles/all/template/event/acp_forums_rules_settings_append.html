@@ -5,28 +5,28 @@
 	<fieldset>
 		<legend>{L_TOPIC_SOLVED_SETTINGS}</legend>
 		<dl>
-			<dt><label for="forum_allow_solve">{L_ALLOW_SOLVE}:</label><br /><span>{L_ALLOW_SOLVE_EXPLAIN}</span></dt>
+			<dt><label for="forum_allow_solve">{L_ALLOW_SOLVE}{L_COLON}</label><br /><span>{L_ALLOW_SOLVE_EXPLAIN}</span></dt>
 			<dd><label><input type="radio" class="radio" name="forum_allow_solve" value="{TOPIC_SOLVED_YES}"<!-- IF S_FORUM_ALLOW_SOLVE == TOPIC_SOLVED_YES --> id="forum_allow_solve" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
 				<label><input type="radio" class="radio" name="forum_allow_solve" value="{TOPIC_SOLVED_MOD}"<!-- IF S_FORUM_ALLOW_SOLVE == TOPIC_SOLVED_MOD --> id="forum_allow_solve" checked="checked"<!-- ENDIF --> /> {L_YES_MOD}</label>
 				<label><input type="radio" class="radio" name="forum_allow_solve" value="0"<!-- IF not S_FORUM_ALLOW_SOLVE --> id="forum_allow_solve" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 		<dl>
-			<dt><label for="forum_allow_unsolve">{L_ALLOW_UNSOLVE}:</label><br /><span>{L_ALLOW_UNSOLVE_EXPLAIN}</span></dt>
+			<dt><label for="forum_allow_unsolve">{L_ALLOW_UNSOLVE}{L_COLON}</label><br /><span>{L_ALLOW_UNSOLVE_EXPLAIN}</span></dt>
 			<dd><label><input type="radio" class="radio" name="forum_allow_unsolve" value="{TOPIC_SOLVED_YES}"<!-- IF S_FORUM_ALLOW_UNSOLVE == TOPIC_SOLVED_YES --> id="forum_allow_unsolve" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
 				<label><input type="radio" class="radio" name="forum_allow_unsolve" value="{TOPIC_SOLVED_MOD}"<!-- IF S_FORUM_ALLOW_UNSOLVE == TOPIC_SOLVED_MOD --> id="forum_allow_unsolve" checked="checked"<!-- ENDIF --> /> {L_YES_MOD}</label>
 				<label><input type="radio" class="radio" name="forum_allow_unsolve" value="0"<!-- IF not S_FORUM_ALLOW_UNSOLVE --> id="forum_allow_unsolve" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 		<dl>
-			<dt><label for="forum_lock_solved">{L_LOCK_SOLVED}:</label><br /><span>{L_LOCK_SOLVED_EXPLAIN}</span></dt>
+			<dt><label for="forum_lock_solved">{L_LOCK_SOLVED}{L_COLON}</label><br /><span>{L_LOCK_SOLVED_EXPLAIN}</span></dt>
 			<dd><label><input type="radio" class="radio" name="forum_lock_solved" value="1"<!-- IF S_FORUM_LOCK_SOLVED --> id="forum_lock_solved" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
 				<label><input type="radio" class="radio" name="forum_lock_solved" value="0"<!-- IF not S_FORUM_LOCK_SOLVED --> id="forum_lock_solved" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 		<dl>
-			<dt><label for="forum_solve_text">{L_FORUM_SOLVE_TEXT}:</label><br /><span>{L_FORUM_SOLVE_TEXT_EXPLAIN}</span></dt>
+			<dt><label for="forum_solve_text">{L_FORUM_SOLVE_TEXT}{L_COLON}</label><br /><span>{L_FORUM_SOLVE_TEXT_EXPLAIN}</span></dt>
 			<dd><input type="text" id="forum_solve_text" name="forum_solve_text" value="{FORUM_SOLVE_TEXT}" size="10" maxlength="20" />&nbsp;&nbsp;{FORUM_SOLVE_IMG}</dd>
 		</dl>
 		<dl>
-			<dt><label for="forum_solve_color">{L_FORUM_SOLVE_COLOR}:</label><br /><span>{L_FORUM_SOLVE_COLOR_EXPLAIN}</span></dt>
+			<dt><label for="forum_solve_color">{L_FORUM_SOLVE_COLOR}{L_COLON}</label><br /><span>{L_FORUM_SOLVE_COLOR_EXPLAIN}</span></dt>
 			<dd>
 				<input name="forum_solve_color" type="text" id="forum_solve_color" value="{FORUM_SOLVE_COLOR}" size="6" maxlength="6" />
 				<!-- IF FORUM_SOLVE_COLOR -->&nbsp;<span style="background-color: #{FORUM_SOLVE_COLOR}">&nbsp; &nbsp;</span><!-- ENDIF -->&nbsp;&nbsp;<span>
