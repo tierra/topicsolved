@@ -28,7 +28,9 @@
 		<dl>
 			<dt><label for="forum_solve_color">{L_FORUM_SOLVE_COLOR}:</label><br /><span>{L_FORUM_SOLVE_COLOR_EXPLAIN}</span></dt>
 			<dd>
-				<input name="forum_solve_color" type="text" id="forum_solve_color" value="{FORUM_SOLVE_COLOR}" size="6" maxlength="6" />&nbsp;&nbsp;
-				<!-- <span>[ <a href="{U_SOLVE_SWATCH}" onclick="popup(this.href, 636, 150, '_swatch'); return false">{L_COLOUR_SWATCH}</a> ]</span> -->
+				<input name="forum_solve_color" type="text" id="forum_solve_color" value="{FORUM_SOLVE_COLOR}" size="6" maxlength="6" />
+				<!-- IF FORUM_SOLVE_COLOR -->&nbsp;<span style="background-color: #{FORUM_SOLVE_COLOR}">&nbsp; &nbsp;</span><!-- ENDIF -->&nbsp;&nbsp;<span>
+				[ <a href="#" id="color_palette_toggle">{L_COLOUR_SWATCH}</a> ]</span>
+				<div id="color_palette_placeholder" style="display: none;" data-orientation="h" data-height="12" data-width="15" data-target="#forum_solve_color"></div>
 			</dd>
 		</dl>
