@@ -19,7 +19,7 @@ This is an update of the phpBB 3.0.x Topic Solved MOD, written by Jari Kanerva.
     *   Search Results (both Post and Topic views)
     *   MCP Forum View
 *   Use custom text indicator instead of default image.
-*   Custom text indicators can use custom color.
+*   Custom text indicators can use custom colour.
 *   Only topic author or moderator can solve topics.
 *   Can be locked to only moderator access for solving topics.
 *   Solving topics may be set to automatically lock the topic.

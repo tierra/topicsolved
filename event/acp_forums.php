@@ -102,7 +102,7 @@ class acp_forums implements EventSubscriberInterface
 			'S_FORUM_LOCK_SOLVED' => $forum_data['forum_lock_solved'],
 			'S_FORUM_ALLOW_UNSOLVE' => $forum_data['forum_allow_unsolve'],
 			'FORUM_SOLVE_TEXT' => $forum_data['forum_solve_text'],
-			'FORUM_SOLVE_COLOR' => $forum_data['forum_solve_color'],
+			'FORUM_SOLVE_COLOUR' => $forum_data['forum_solve_color'],
 			// TODO: Enable solved topic image.
 			//'FORUM_SOLVE_IMG' => ($forum_data['forum_solve_text']) ? '' : $user->img('icon_topic_solved_head', 'TOPIC_SOLVED'),
 			'FORUM_SOLVE_IMG' => '',
