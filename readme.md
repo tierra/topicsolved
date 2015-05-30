@@ -32,6 +32,7 @@ This extension comes bundled with support for the following languages:
 *    Czech (cz)
 *    Dutch (nl)
 *    English (en)
+*    Estonian (et)
 *    French (fr)
 *    Japanese (ja)
 *    Russian (ru)
