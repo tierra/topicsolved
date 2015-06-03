@@ -27,8 +27,8 @@ $lang = array_merge($lang, array(
 	'LOCK_SOLVED_EXPLAIN'        => 'Pouze moderátoři mohou odemykat uzamknutá témata.',
 	'TOPIC_SOLVED_SETTINGS'      => 'Nastavení vyřešených témat',
 	'FORUM_SOLVE_TEXT'           => 'Zvolte text, zobrazený místo obrázku u vyřešeného tématu',
-	'FORUM_SOLVE_TEXT_EXPLAIN'   => 'Mlžete použít textové označení vyřešeného tématu místo obrázku. Například [VYŘEŠENO] nebo [PRODÁNO] nebo něco jiného. Nechte prázdné pro použití obrázků.',
+	'FORUM_SOLVE_TEXT_EXPLAIN'   => 'Místo obrázku můžete použít textové označení vyřešeného tématu. Například [VYŘEŠENO] nebo [PRODÁNO] nebo něco jiného. Nechte prázdné pro použití obrázků.',
 	'FORUM_SOLVE_COLOUR'         => 'Barva textu',
 	'FORUM_SOLVE_COLOUR_EXPLAIN' => 'Vyberte barvu textu. Nechte prázdné pro použití výchozí barvy textu.',
-	'YES_MOD'                    => 'Ano, moderator',
+	'YES_MOD'                    => 'Ano, moderátor',
 ));
