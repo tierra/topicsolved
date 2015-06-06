@@ -23,7 +23,6 @@ class topicsolved_functional_acp_forums_test extends topicsolved_functional_base
 		$this->login();
 		$this->admin_login();
 		$this->add_lang(array('acp/forums'));
-		//$this->add_lang_ext('tierra/topicsolved', array('info_acp_forums'));
 	}
 
 	/**

@@ -34,8 +34,7 @@ class topicsolved_functional_base extends \phpbb_functional_test_case
 		$this->purge_cache();
 		$this->add_lang_ext('tierra/topicsolved', array(
 			'common',
-			'info_acp_forums',
-			'info_acp_styles',
+			'info_acp_topicsolved',
 		));
 	}
 }

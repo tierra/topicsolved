@@ -31,4 +31,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOUR'         => 'Colour for the text',
 	'FORUM_SOLVE_COLOUR_EXPLAIN' => 'Choose a colour for the text. Leave empty to use default colour.',
 	'YES_MOD'                    => 'Yes, moderator',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Topic is solved',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Topic is solved',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Topic is solved',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Accept this answer',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Mark topic as not solved',
 ));

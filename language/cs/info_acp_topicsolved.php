@@ -31,4 +31,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOUR'         => 'Barva textu',
 	'FORUM_SOLVE_COLOUR_EXPLAIN' => 'Vyberte barvu textu. Nechte prázdné pro použití výchozí barvy textu.',
 	'YES_MOD'                    => 'Ano, moderátor',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Téma je vyřešené',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Téma je vyřešené',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Téma je vyřešené',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Nastavit tento příspěvek jako řešení tématu',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Zrušit označení tématu jako vyřešené',
 ));

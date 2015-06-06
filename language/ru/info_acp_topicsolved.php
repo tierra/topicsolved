@@ -31,4 +31,10 @@ $lang = array_merge($lang, array(
 	'FORUM_SOLVE_COLOUR'         => 'Цвет для текста',
 	'FORUM_SOLVE_COLOUR_EXPLAIN' => 'Выберите цвет для текста. Для выбора цвета по умолчанию оставьте поле пустым.',
 	'YES_MOD'                    => 'Да, модератор',
+
+	'IMG_ICON_TOPIC_SOLVED_HEAD'    => 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_LIST'    => 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_POST'    => 'Тема решена',
+	'IMG_ICON_TOPIC_SOLVED_SET'     => 'Принять в качестве ответа',
+	'IMG_ICON_TOPIC_SOLVED_UNSET'   => 'Отметить тему как нерешённую',
 ));
