@@ -143,7 +143,7 @@ class topicsolved
 	 * Update topic with the given data.
 	 *
 	 * @param int $topic_id Topic to update.
-	 * @param int $data Topic data to update.
+	 * @param array $data Topic data to update.
 	 *
 	 * @return mixed true if successful
 	 */
