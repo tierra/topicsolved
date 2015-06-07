@@ -22,7 +22,7 @@ This is an update of the phpBB 3.0.x Topic Solved MOD, written by Jari Kanerva.
 *   Custom text indicators can use custom colour.
 *   Only topic author or moderator can solve topics.
 *   Can be locked to only moderator access for solving topics.
-*   Solving topics may be set to automatically lock the topic.
+*   Solving topics may be set to automatically lock/unlock the topic.
 *   All settings can be customized per-forum.
 
 ## Translations

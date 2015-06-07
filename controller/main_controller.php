@@ -54,10 +54,14 @@ class main_controller
 
 		$this->check_solve_conditions($solve, $topic_data);
 
-		$lock_topic = (bool) $topic_data['forum_lock_solved'];
-		$solved_post_id = $solve == 'solved' ? $post_id : 0;
-		$this->topicsolved->update_topic_solved(
-			$topic_data['topic_id'], $solved_post_id, $lock_topic);
+		if ($solve == 'solved')
+		{
+			$this->topicsolved->mark_solved($topic_data, $post_id);
+		}
+		else
+		{
+			$this->topicsolved->mark_unsolved($topic_data);
+		}
 
 		$post_url = $this->topicsolved->get_link_to_post(
 			$topic_data['forum_id'], $topic_data['topic_id'], $post_id);
