@@ -34,6 +34,8 @@ This extension comes bundled with support for the following languages:
 *    English (en)
 *    Estonian (et)
 *    French (fr)
+*    German (de)
+*    German (Formal Honorifics) (de_x_sie)
 *    Japanese (ja)
 *    Russian (ru)
 *    Spanish (es)
