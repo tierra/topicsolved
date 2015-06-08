@@ -33,7 +33,7 @@ class main_controller_test extends \phpbb_database_test_case
 	 *
 	 * @return string[]
 	 */
-	static protected function setup_extensions()
+	protected static function setup_extensions()
 	{
 		return array('tierra/topicsolved');
 	}

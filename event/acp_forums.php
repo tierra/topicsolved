@@ -50,7 +50,7 @@ class acp_forums implements EventSubscriberInterface
 	 *
 	 * @return array
 	 */
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.acp_manage_forums_initialise_data'

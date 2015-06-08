@@ -54,7 +54,7 @@ class main_listener implements EventSubscriberInterface
 	 *
 	 * @return array
 	 */
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.viewforum_modify_topicrow'
