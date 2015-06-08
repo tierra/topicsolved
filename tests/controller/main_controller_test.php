@@ -87,16 +87,12 @@ class main_controller_test extends \phpbb_database_test_case
 	 */
 	public function test_controller()
 	{
-		$this->markTestIncomplete(
-			"Can't finish this test until migrations are implemented."
-		);
+		$controller = $this->get_controller(1, 'mark');
 
-		//$controller = $this->get_controller(1, 'mark');
+		$response = $controller->mark('solved', 1);
 
-		//$response = $controller->mark('solved', 1);
-
-		//$this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
-		//$this->assertEquals(302, $response->getStatusCode());
-		//$this->assertEquals($content, $response->getContent());
+		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertTrue($response->isRedirect('phpBB/viewtopic.php?f=1&t=1&p=1#p1'));
 	}
 }
