@@ -10,8 +10,6 @@
 
 namespace tierra\topicsolved\tests\controller;
 
-require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
-
 use tierra\topicsolved\controller\main_controller;
 use tierra\topicsolved\topicsolved;
 
@@ -56,6 +54,9 @@ class main_controller_test extends \phpbb_database_test_case
 	public function setUp()
 	{
 		parent::setUp();
+
+		// Needed for append_sid() call, normally loaded by phpBB init.
+		require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
 	}
 
 	/**
