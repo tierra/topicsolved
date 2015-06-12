@@ -8,6 +8,7 @@ topics for other purposes such as classifieds being marked as sold.
 
 This is an update of the phpBB 3.0.x Topic Solved MOD, written by Jari Kanerva.
 
+[![Packagist](https://img.shields.io/packagist/v/tierra/topicsolved.svg)](https://packagist.org/packages/tierra/topicsolved)
 [![Travis](https://img.shields.io/travis/tierra/topicsolved.svg)](https://travis-ci.org/tierra/topicsolved)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/tierra/topicsolved.svg)](https://scrutinizer-ci.com/g/tierra/topicsolved/?branch=master)
 
