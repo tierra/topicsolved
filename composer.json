@@ -21,7 +21,8 @@
 		"composer/installers": "~1.0"
 	},
 	"require-dev": {
-		"phpbb/epv": "dev-master"
+		"phpbb/epv": "dev-master",
+		"codeclimate/php-test-reporter": "dev-master"
 	},
 	"extra": {
 		"display-name": "Topic Solved",

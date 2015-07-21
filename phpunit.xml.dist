@@ -22,15 +22,13 @@
 	</testsuites>
 
 	<filter>
-		<blacklist>
-			<directory>./tests/</directory>
-		</blacklist>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./</directory>
 			<exclude>
 				<directory suffix=".php">./language/</directory>
 				<directory suffix=".php">./migrations/</directory>
 				<directory suffix=".php">./tests/</directory>
+				<directory suffix=".php">./vendor/</directory>
 			</exclude>
 		</whitelist>
 	</filter>
