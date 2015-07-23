@@ -53,5 +53,5 @@ script:
 
 after_script:
   - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.4' ] && [ '$DB' = 'mysqli' ] && [ '$TRAVIS_BRANCH' = 'master' ] && [ '$TRAVIS_PULL_REQUEST' = 'false' ]; then cd phpBB/ext/$EXTNAME && vendor/bin/test-reporter --coverage-report clover.xml; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.4' ] && [ '$DB' = 'mysqli' ] && [ '$TRAVIS_BRANCH' = 'master' ] && [ '$TRAVIS_PULL_REQUEST' = 'false' ]; then cd phpBB/ext/$EXTNAME && wget -nv https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --repository=g/tierra/topicsolved --format=php-clover clover.xml; fi"
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.4' ] && [ '$DB' = 'mysqli' ] && [ '$TRAVIS_BRANCH' = 'master' ] && [ '$TRAVIS_PULL_REQUEST' = 'false' ]; then cd phpBB/ext/$EXTNAME && wget -nv https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --repository=g/tierra/topicsolved --revision=$TRAVIS_COMMIT --format=php-clover clover.xml; fi"
 
