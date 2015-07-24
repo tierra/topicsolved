@@ -105,36 +105,8 @@ class main_listener_test extends \phpbb_test_case
 	public function modify_topicrow_data()
 	{
 		return array(
-			array(
-				array(
-					topicsolved::TOPIC_SOLVED_YES,
-					topicsolved::TOPIC_SOLVED_YES,
-					0, '', ''
-				),
-				array('TOPIC_TITLE' => 'Test Topic'),
-				array(
-					'forum_id' => 1,
-					'topic_id' => 1,
-					'topic_type' => POST_NORMAL,
-					'topic_solved' => 0
-				),
-				'Test Topic'
-			),
-			array(
-				array(
-					topicsolved::TOPIC_SOLVED_YES,
-					topicsolved::TOPIC_SOLVED_YES,
-					0, '', ''
-				),
-				array('TOPIC_TITLE' => 'Test Topic'),
-				array(
-					'forum_id' => 1,
-					'topic_id' => 1,
-					'topic_type' => POST_NORMAL,
-					'topic_solved' => 1
-				),
-				'Test Topic&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" title="Topic is solved"><span class="imageset icon_solved_list" title="Topic is solved">Topic is solved</span></a>'
-			),
+			array('Test Topic', 0, 'Test Topic'),
+			array('Test Topic', 1, 'Test Topic&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" title="Topic is solved"><span class="imageset icon_solved_list" title="Topic is solved">Topic is solved</span></a>'),
 		);
 	}
 
@@ -143,9 +115,13 @@ class main_listener_test extends \phpbb_test_case
 	 *
 	 * @dataProvider modify_topicrow_data
 	 */
-	public function test_modify_topicrow($settings, $topic_row, $row, $expected)
+	public function test_modify_topicrow($topic_title, $topic_solved, $expected)
 	{
-		$this->set_forum_settings($settings);
+		$this->set_forum_settings(array(
+			topicsolved::TOPIC_SOLVED_YES,
+			topicsolved::TOPIC_SOLVED_YES,
+			0, '', ''
+		));
 
 		$this->topicsolved->method('get_link_to_post')
 			->will($this->returnValueMap(array(
@@ -162,7 +138,17 @@ class main_listener_test extends \phpbb_test_case
 		$dispatcher->addListener('core.viewforum_modify_topicrow',
 			array($this->main_listener, 'modify_topicrow'));
 
-		$event = new \phpbb\event\data(compact(array('topic_row', 'row')));
+		$input_data = array(
+			'topic_row' => array('TOPIC_TITLE' => $topic_title),
+			'row' => array(
+				'forum_id' => 1,
+				'topic_id' => 1,
+				'topic_type' => POST_NORMAL,
+				'topic_solved' => $topic_solved
+			)
+		);
+
+		$event = new \phpbb\event\data($input_data);
 		$dispatcher->dispatch('core.viewforum_modify_topicrow', $event);
 		$data = $event->get_data();
 

@@ -8,9 +8,9 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
+         strict="true"
          verbose="true"
-         bootstrap="../../../../tests/bootstrap.php"
-		>
+         bootstrap="../../../../tests/bootstrap.php">
 	<testsuites>
 		<testsuite name="Extension Test Suite">
 			<directory suffix="_test.php">./tests</directory>
@@ -32,6 +32,10 @@
 			</exclude>
 		</whitelist>
 	</filter>
+
+	<logging>
+		<log type="coverage-clover" target="clover.xml" />
+	</logging>
 
 	<php>
 		<server name="PHPBB_TEST_DBMS" value="phpbb\db\driver\mysqli" />
