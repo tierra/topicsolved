@@ -13,7 +13,7 @@ namespace tierra\topicsolved\tests\functional;
 /**
  * @group functional
  */
-class topicsolved_functional_base extends \phpbb_functional_test_case
+class functional_test_case extends \phpbb_functional_test_case
 {
 	/**
 	 * Define the extensions to be tested

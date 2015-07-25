@@ -13,7 +13,7 @@ namespace tierra\topicsolved\tests\functional;
 /**
  * @group functional
  */
-class topicsolved_functional_acp_forums_test extends topicsolved_functional_base
+class topicsolved_functional_acp_forums_test extends functional_test_case
 {
 	/**
 	 * Authenticate for testing ACP features.
