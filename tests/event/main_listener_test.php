@@ -79,6 +79,8 @@ class main_listener_test extends event_test_case
 
 	/**
 	 * Trigger forum data event to pre-fill forum settings.
+	 *
+	 * @param array $settings Forum settings to pre-fill.
 	 */
 	private function set_forum_settings($settings)
 	{
@@ -99,7 +101,7 @@ class main_listener_test extends event_test_case
 	 */
 	private function mock_get_link_to_post()
 	{
-		$this->topicsolved->method('get_link_to_post')
+		$this->topicsolved->expects($this->any())->method('get_link_to_post')
 			->will($this->returnValueMap(array(
 				array(1, 1, 1, './viewtopic.php?f=1&t=1&p=1#p1'),
 			)));
@@ -113,13 +115,17 @@ class main_listener_test extends event_test_case
 	public function modify_topicrow_data()
 	{
 		return array(
-			array('Test Topic', 0, 'Test Topic'),
+			array('Test Topic', '', 'Test Topic'),
 			array('Test Topic', 1, 'Test Topic&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" title="Topic is solved"><span class="imageset icon_solved_list" title="Topic is solved">Topic is solved</span></a>'),
 		);
 	}
 
 	/**
 	 * Test the modify_topicrow event.
+	 *
+	 * @param string $topic_title Topic title to test.
+	 * @param string|int $topic_solved Solve post for topic.
+	 * @param string $expected Expected topic title to return.
 	 *
 	 * @dataProvider modify_topicrow_data
 	 */
@@ -132,7 +138,7 @@ class main_listener_test extends event_test_case
 		));
 
 		$this->mock_get_link_to_post();
-		$this->topicsolved->method('image')
+		$this->topicsolved->expects($this->any())->method('image')
 			->will($this->returnValueMap(array(
 				array('list', 'TOPIC_SOLVED', './viewtopic.php?f=1&t=1&p=1#p1',
 					'<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" title="Topic is solved"><span class="imageset icon_solved_list" title="Topic is solved">Topic is solved</span></a>'),
@@ -255,6 +261,11 @@ class main_listener_test extends event_test_case
 	{
 		return array(
 			array(0, POST_NORMAL, topicsolved::TOPIC_SOLVED_YES, '', ''),
+			array(1, POST_NORMAL, topicsolved::TOPIC_SOLVED_YES, '', ''),
+			array(1, POST_GLOBAL, topicsolved::TOPIC_SOLVED_YES, '', ''),
+			array(1, POST_NORMAL, topicsolved::TOPIC_SOLVED_NO, '', ''),
+			array(1, POST_NORMAL, topicsolved::TOPIC_SOLVED_YES, 'SOLVED', ''),
+			array(1, POST_NORMAL, topicsolved::TOPIC_SOLVED_YES, 'SOLVED', '00ff00'),
 		);
 	}
 
@@ -271,34 +282,24 @@ class main_listener_test extends event_test_case
 
 		if ($topic_solved && $forum_allow_solve && $topic_type != POST_GLOBAL)
 		{
-			$this->template->expects($this->once())->method('assign_var')
-				->with($this->equalTo('U_SOLVED_POST'), $this->anything());
+			$calls = array(array($this->equalTo('U_SOLVED_POST'), $this->anything()));
 
 			if (!empty($forum_solve_text))
 			{
-				$this->template->expects($this->once())->method('assign_var')
-					->with('TOPIC_SOLVED_TITLE', $forum_solve_text);
-				$this->template->expects($this->never())->method('assign_var')
-					->with('TOPIC_SOLVED_IMAGE', $this->anything());
+				$calls[] = array($this->equalTo('TOPIC_SOLVED_TITLE'), $this->equalTo($forum_solve_text));
 			}
 			else
 			{
-				$this->template->expects($this->never())->method('assign_var')
-					->with('TOPIC_SOLVED_TITLE', $forum_solve_text);
-				$this->template->expects($this->once())->method('assign_var')
-					->with('TOPIC_SOLVED_IMAGE', $this->anything());
+				$calls[] = array($this->equalTo('TOPIC_SOLVED_IMAGE'), $this->anything());
 			}
 
 			if (!empty($forum_solve_color))
 			{
-				$this->template->expects($this->once())->method('assign_var')
-					->with('TOPIC_SOLVED_STYLE', $forum_solve_color);
+				$calls[] = array($this->equalTo('TOPIC_SOLVED_STYLE'), $this->equalTo($forum_solve_color));
 			}
-			else
-			{
-				$this->template->expects($this->never())->method('assign_var')
-					->with('TOPIC_SOLVED_STYLE', $forum_solve_color);
-			}
+
+			$method = $this->template->expects($this->exactly(count($calls)))->method('assign_var');
+			call_user_func_array(array($method, 'withConsecutive'), $calls);
 		}
 		else
 		{

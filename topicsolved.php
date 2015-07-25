@@ -17,6 +17,9 @@ namespace tierra\topicsolved;
  */
 class topicsolved
 {
+	/** No-one can mark topics as solved. */
+	const TOPIC_SOLVED_NO = 0;
+
 	/** Topic starter and moderators can mark topics as solved. */
 	const TOPIC_SOLVED_YES = 1;
 
