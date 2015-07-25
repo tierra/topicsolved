@@ -167,4 +167,79 @@ class main_listener_test extends event_test_case
 		$this->assertContains('f.forum_solve_text', $get_topic['sql_select']);
 		$this->assertContains('f.forum_solve_color', $get_topic['sql_select']);
 	}
+
+	/**
+	 * Data set for search_modify_tpl_ary.
+	 *
+	 * @return array Array of test data.
+	 */
+	public function search_modify_tpl_ary_data()
+	{
+		return array(
+			array(
+				'First Title', '', 1, 'topics',
+				'First Title</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" class="topictitle" style="">[SOLVED]', ''
+			),
+			array(
+				'Second Title', 'Post Subject', 1, 'posts',
+				'Second Title</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="">[SOLVED]',
+				'Post Subject</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="">[SOLVED]'
+			),
+			array(
+				'Third Title', '', 0, 'topics', 'Third Title', ''
+			)
+		);
+	}
+
+	/**
+	 * Test the search_modify_tpl_ary event.
+	 *
+	 * @dataProvider search_modify_tpl_ary_data
+	 */
+	public function test_search_modify_tpl_ary(
+		$topic_title, $post_subject, $topic_solved, $show_results,
+		$expected_topic_title, $expected_post_subject
+	)
+	{
+		$this->topicsolved->method('get_link_to_post')
+			->will($this->returnValueMap(array(
+				array(1, 1, 1, './viewtopic.php?f=1&t=1&p=1#p1'),
+			)));
+
+		$input = array(
+			'tpl_ary' => array('TOPIC_TITLE' => $topic_title),
+			'row' => array(
+				'forum_id' => 1,
+				'topic_id' => 1,
+				'post_id' => 1,
+				'topic_type' => POST_NORMAL,
+				'topic_solved' => $topic_solved,
+				'forum_solve_text' => '[SOLVED]',
+				'forum_solve_color' => ''
+			),
+			'show_results' => $show_results
+		);
+
+		if (!empty($post_subject))
+		{
+			$input['tpl_ary']['POST_SUBJECT'] = $post_subject;
+		}
+
+		$data = $this->dispatch(
+			array($this->main_listener, 'search_modify_tpl_ary'), $input
+		);
+
+		$this->assertArrayHasKey('TOPIC_TITLE', $data['tpl_ary']);
+		$this->assertEquals($expected_topic_title, $data['tpl_ary']['TOPIC_TITLE']);
+
+		if (!empty($expected_post_subject))
+		{
+			$this->assertArrayHasKey('POST_SUBJECT', $data['tpl_ary']);
+			$this->assertEquals($expected_post_subject, $data['tpl_ary']['POST_SUBJECT']);
+		}
+		else
+		{
+			$this->assertArrayNotHasKey('POST_SUBJECT', $data['tpl_ary']);
+		}
+	}
 }
