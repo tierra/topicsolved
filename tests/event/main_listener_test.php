@@ -95,6 +95,17 @@ class main_listener_test extends event_test_case
 	}
 
 	/**
+	 * Mock the topicsolved::get_link_to_post method.
+	 */
+	private function mock_get_link_to_post()
+	{
+		$this->topicsolved->method('get_link_to_post')
+			->will($this->returnValueMap(array(
+				array(1, 1, 1, './viewtopic.php?f=1&t=1&p=1#p1'),
+			)));
+	}
+
+	/**
 	 * Data set for test_modify_topicrow.
 	 *
 	 * @return array Array of test data.
@@ -120,11 +131,7 @@ class main_listener_test extends event_test_case
 			0, '', ''
 		));
 
-		$this->topicsolved->method('get_link_to_post')
-			->will($this->returnValueMap(array(
-				array(1, 1, 1, './viewtopic.php?f=1&t=1&p=1#p1'),
-			)));
-
+		$this->mock_get_link_to_post();
 		$this->topicsolved->method('image')
 			->will($this->returnValueMap(array(
 				array('list', 'TOPIC_SOLVED', './viewtopic.php?f=1&t=1&p=1#p1',
@@ -177,16 +184,16 @@ class main_listener_test extends event_test_case
 	{
 		return array(
 			array(
-				'First Title', '', 1, 'topics',
+				'First Title', '', 1, 'topics', '',
 				'First Title</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" class="topictitle" style="">[SOLVED]', ''
 			),
 			array(
-				'Second Title', 'Post Subject', 1, 'posts',
-				'Second Title</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="">[SOLVED]',
-				'Post Subject</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="">[SOLVED]'
+				'Second Title', 'Post Subject', 1, 'posts', '00ff00',
+				'Second Title</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="color: #00ff00;">[SOLVED]',
+				'Post Subject</a>&nbsp;<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" style="color: #00ff00;">[SOLVED]'
 			),
 			array(
-				'Third Title', '', 0, 'topics', 'Third Title', ''
+				'Third Title', '', 0, 'topics', '', 'Third Title', ''
 			)
 		);
 	}
@@ -198,12 +205,9 @@ class main_listener_test extends event_test_case
 	 */
 	public function test_search_modify_tpl_ary(
 		$topic_title, $post_subject, $topic_solved, $show_results,
-		$expected_topic_title, $expected_post_subject)
+		$forum_solve_color, $expected_topic_title, $expected_post_subject)
 	{
-		$this->topicsolved->method('get_link_to_post')
-			->will($this->returnValueMap(array(
-				array(1, 1, 1, './viewtopic.php?f=1&t=1&p=1#p1'),
-			)));
+		$this->mock_get_link_to_post();
 
 		$input = array(
 			'tpl_ary' => array('TOPIC_TITLE' => $topic_title),
@@ -214,7 +218,7 @@ class main_listener_test extends event_test_case
 				'topic_type' => POST_NORMAL,
 				'topic_solved' => $topic_solved,
 				'forum_solve_text' => '[SOLVED]',
-				'forum_solve_color' => ''
+				'forum_solve_color' => $forum_solve_color
 			),
 			'show_results' => $show_results
 		);
@@ -240,5 +244,81 @@ class main_listener_test extends event_test_case
 		{
 			$this->assertArrayNotHasKey('POST_SUBJECT', $data['tpl_ary']);
 		}
+	}
+
+	/**
+	 * Data set for test_viewtopic_assign_template_vars_before.
+	 *
+	 * @return array Array of test data.
+	 */
+	public function viewtopic_assign_template_vars_before_data()
+	{
+		return array(
+			array(0, POST_NORMAL, topicsolved::TOPIC_SOLVED_YES, '', ''),
+		);
+	}
+
+	/**
+	 * Test the viewtopic_assign_template_vars_before event.
+	 *
+	 * @dataProvider viewtopic_assign_template_vars_before_data
+	 */
+	public function test_viewtopic_assign_template_vars_before(
+		$topic_solved, $topic_type,
+		$forum_allow_solve, $forum_solve_text, $forum_solve_color)
+	{
+		$this->mock_get_link_to_post();
+
+		if ($topic_solved && $forum_allow_solve && $topic_type != POST_GLOBAL)
+		{
+			$this->template->expects($this->once())->method('assign_var')
+				->with($this->equalTo('U_SOLVED_POST'), $this->anything());
+
+			if (!empty($forum_solve_text))
+			{
+				$this->template->expects($this->once())->method('assign_var')
+					->with('TOPIC_SOLVED_TITLE', $forum_solve_text);
+				$this->template->expects($this->never())->method('assign_var')
+					->with('TOPIC_SOLVED_IMAGE', $this->anything());
+			}
+			else
+			{
+				$this->template->expects($this->never())->method('assign_var')
+					->with('TOPIC_SOLVED_TITLE', $forum_solve_text);
+				$this->template->expects($this->once())->method('assign_var')
+					->with('TOPIC_SOLVED_IMAGE', $this->anything());
+			}
+
+			if (!empty($forum_solve_color))
+			{
+				$this->template->expects($this->once())->method('assign_var')
+					->with('TOPIC_SOLVED_STYLE', $forum_solve_color);
+			}
+			else
+			{
+				$this->template->expects($this->never())->method('assign_var')
+					->with('TOPIC_SOLVED_STYLE', $forum_solve_color);
+			}
+		}
+		else
+		{
+			$this->template->expects($this->never())->method('assign_var')
+				->with($this->anything(), $this->anything());
+		}
+
+		$this->dispatch(
+			array($this->main_listener, 'viewtopic_assign_template_vars_before'),
+			array(
+				'forum_id' => 1,
+				'topic_id' => 1,
+				'topic_data' => array(
+					'topic_solved' => $topic_solved,
+					'topic_type' => $topic_type,
+					'forum_allow_solve' => $forum_allow_solve,
+					'forum_solve_text' => $forum_solve_text,
+					'forum_solve_color' => $forum_solve_color
+				)
+			)
+		);
 	}
 }
