@@ -18,7 +18,7 @@ use tierra\topicsolved\topicsolved;
  *
  * @package tierra/topicsolved/tests/event
  */
-class main_listener_test extends \phpbb_test_case
+class main_listener_test extends event_test_case
 {
 	/* @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
@@ -82,19 +82,16 @@ class main_listener_test extends \phpbb_test_case
 	 */
 	private function set_forum_settings($settings)
 	{
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-		$dispatcher->addListener('core.viewforum_get_topic_ids_data',
-			array($this->main_listener, 'viewforum_get_topic_ids_data'));
-
-		$event = new \phpbb\event\data(array('forum_data' => array(
-			'forum_allow_solve'   => $settings[0],
-			'forum_allow_unsolve' => $settings[1],
-			'forum_lock_solved'   => $settings[2],
-			'forum_solve_text'    => $settings[3],
-			'forum_solve_color'   => $settings[4]
-		)));
-
-		$dispatcher->dispatch('core.viewforum_get_topic_ids_data', $event);
+		$this->dispatch(
+			array($this->main_listener, 'viewforum_get_topic_ids_data'),
+			array('forum_data' => array(
+				'forum_allow_solve'   => $settings[0],
+				'forum_allow_unsolve' => $settings[1],
+				'forum_lock_solved'   => $settings[2],
+				'forum_solve_text'    => $settings[3],
+				'forum_solve_color'   => $settings[4]
+			))
+		);
 	}
 
 	/**
@@ -134,25 +131,40 @@ class main_listener_test extends \phpbb_test_case
 					'<a href="./viewtopic.php?f=1&amp;t=1&amp;p=1#p1" title="Topic is solved"><span class="imageset icon_solved_list" title="Topic is solved">Topic is solved</span></a>'),
 			)));
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-		$dispatcher->addListener('core.viewforum_modify_topicrow',
-			array($this->main_listener, 'modify_topicrow'));
-
-		$input_data = array(
-			'topic_row' => array('TOPIC_TITLE' => $topic_title),
-			'row' => array(
-				'forum_id' => 1,
-				'topic_id' => 1,
-				'topic_type' => POST_NORMAL,
-				'topic_solved' => $topic_solved
+		$data = $this->dispatch(
+			array($this->main_listener, 'modify_topicrow'),
+			array(
+				'topic_row' => array('TOPIC_TITLE' => $topic_title),
+				'row' => array(
+					'forum_id' => 1,
+					'topic_id' => 1,
+					'topic_type' => POST_NORMAL,
+					'topic_solved' => $topic_solved
+				)
 			)
 		);
 
-		$event = new \phpbb\event\data($input_data);
-		$dispatcher->dispatch('core.viewforum_modify_topicrow', $event);
-		$data = $event->get_data();
-
 		$this->assertArrayHasKey('TOPIC_TITLE', $data['topic_row']);
 		$this->assertContains($expected, $data['topic_row']['TOPIC_TITLE']);
+	}
+
+	/**
+	 * Test forum settings are retrieved in search queries.
+	 */
+	public function test_search_data()
+	{
+		$get_posts = $this->dispatch(
+			array($this->main_listener, 'search_get_posts_data'),
+			array('sql_array' => array('SELECT' => ''))
+		);
+		$this->assertContains('f.forum_solve_text', $get_posts['sql_array']['SELECT']);
+		$this->assertContains('f.forum_solve_color', $get_posts['sql_array']['SELECT']);
+
+		$get_topic = $this->dispatch(
+			array($this->main_listener, 'search_get_topic_data'),
+			array('sql_select' => array('SELECT' => ''))
+		);
+		$this->assertContains('f.forum_solve_text', $get_topic['sql_select']);
+		$this->assertContains('f.forum_solve_color', $get_topic['sql_select']);
 	}
 }
