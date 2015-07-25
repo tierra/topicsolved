@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class acp_forums implements EventSubscriberInterface
 {
-	/* @var \tierra\topicsolved\topicsolved */
+	/** @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
 
 	/** @var \phpbb\template\template */

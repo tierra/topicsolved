@@ -20,11 +20,8 @@ use tierra\topicsolved\topicsolved;
  */
 class main_controller_test extends \phpbb_database_test_case
 {
-	/* @var \tierra\topicsolved\topicsolved */
+	/** @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
 
 	/**
 	 * Define the extension to be tested.

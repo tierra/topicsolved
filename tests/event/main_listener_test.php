@@ -20,16 +20,16 @@ use tierra\topicsolved\topicsolved;
  */
 class main_listener_test extends event_test_case
 {
-	/* @var \tierra\topicsolved\topicsolved */
+	/** @var \tierra\topicsolved\topicsolved|\PHPUnit_Framework_MockObject_MockObject */
 	protected $topicsolved;
 
-	/* @var \phpbb\controller\helper */
+	/** @var \phpbb\controller\helper|\PHPUnit_Framework_MockObject_MockObject */
 	protected $helper;
 
-	/* @var \phpbb\template\template */
+	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
 	protected $template;
 
-	/* @var \tierra\topicsolved\event\main_listener */
+	/** @var \tierra\topicsolved\event\main_listener */
 	protected $main_listener;
 
 	/**
@@ -198,8 +198,7 @@ class main_listener_test extends event_test_case
 	 */
 	public function test_search_modify_tpl_ary(
 		$topic_title, $post_subject, $topic_solved, $show_results,
-		$expected_topic_title, $expected_post_subject
-	)
+		$expected_topic_title, $expected_post_subject)
 	{
 		$this->topicsolved->method('get_link_to_post')
 			->will($this->returnValueMap(array(

@@ -17,7 +17,7 @@ namespace tierra\topicsolved\tests\event;
  */
 class event_test_case extends \phpbb_test_case
 {
-	/* @var \Symfony\Component\EventDispatcher\EventDispatcher */
+	/** @var \Symfony\Component\EventDispatcher\EventDispatcher */
 	protected $dispatcher;
 
 	/**

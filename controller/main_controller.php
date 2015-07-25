@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class main_controller
 {
-	/* @var \tierra\topicsolved\topicsolved */
+	/** @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
 
 	/**

@@ -20,13 +20,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class main_listener implements EventSubscriberInterface
 {
-	/* @var \tierra\topicsolved\topicsolved */
+	/** @var \tierra\topicsolved\topicsolved */
 	protected $topicsolved;
 
-	/* @var \phpbb\controller\helper */
+	/** @var \phpbb\controller\helper */
 	protected $helper;
 
-	/* @var \phpbb\template\template */
+	/** @var \phpbb\template\template */
 	protected $template;
 
 	/** @var array Forum topic solved settings for events missing them. */
