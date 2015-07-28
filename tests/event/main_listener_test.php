@@ -282,20 +282,20 @@ class main_listener_test extends event_test_case
 
 		if ($topic_solved && $forum_allow_solve && $topic_type != POST_GLOBAL)
 		{
-			$calls = array(array($this->equalTo('U_SOLVED_POST'), $this->anything()));
+			$calls = array(array('U_SOLVED_POST', $this->anything()));
 
 			if (!empty($forum_solve_text))
 			{
-				$calls[] = array($this->equalTo('TOPIC_SOLVED_TITLE'), $this->equalTo($forum_solve_text));
+				$calls[] = array('TOPIC_SOLVED_TITLE', $forum_solve_text);
 			}
 			else
 			{
-				$calls[] = array($this->equalTo('TOPIC_SOLVED_IMAGE'), $this->anything());
+				$calls[] = array('TOPIC_SOLVED_IMAGE', $this->anything());
 			}
 
 			if (!empty($forum_solve_color))
 			{
-				$calls[] = array($this->equalTo('TOPIC_SOLVED_STYLE'), $this->equalTo($forum_solve_color));
+				$calls[] = array('TOPIC_SOLVED_STYLE', $forum_solve_color);
 			}
 
 			$method = $this->template->expects($this->exactly(count($calls)))->method('assign_var');

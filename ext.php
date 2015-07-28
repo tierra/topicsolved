@@ -17,15 +17,17 @@ namespace tierra\topicsolved;
  */
 class ext extends \phpbb\extension\base
 {
+	/** Minimum phpBB version. */
+	const PHPBB_MIN_VERSION = '3.1.3';
+
 	/**
-	 * Enable extension if phpBB version requirement is met.
+	 * Enable extension if requirements are met.
 	 *
 	 * @return bool
 	 */
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-
-		return version_compare($config['version'], '3.1.3', '>=');
+		return version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=');
 	}
 }
