@@ -94,13 +94,13 @@ class acp_forums implements EventSubscriberInterface
 	 */
 	public function acp_manage_forums_display_form($event)
 	{
-		$template_data = $event['template_data'];
 		$forum_data = $event['forum_data'];
+		$template_data = $event['template_data'];
 
 		$template_data = array_merge($template_data, array(
 			'S_FORUM_ALLOW_SOLVE' => $forum_data['forum_allow_solve'],
-			'S_FORUM_LOCK_SOLVED' => $forum_data['forum_lock_solved'],
 			'S_FORUM_ALLOW_UNSOLVE' => $forum_data['forum_allow_unsolve'],
+			'S_FORUM_LOCK_SOLVED' => $forum_data['forum_lock_solved'],
 			'FORUM_SOLVE_TEXT' => $forum_data['forum_solve_text'],
 			'FORUM_SOLVE_COLOUR' => $forum_data['forum_solve_color'],
 			// TODO: Enable solved topic image.
@@ -127,9 +127,9 @@ class acp_forums implements EventSubscriberInterface
 		$forum_data = array_merge($forum_data, array(
 			'forum_allow_solve'     => $this->request->variable('forum_allow_solve', 1),
 			'forum_allow_unsolve'   => $this->request->variable('forum_allow_unsolve', 1),
+			'forum_lock_solved'     => $this->request->variable('forum_lock_solved', 0),
 			'forum_solve_text'      => $this->request->variable('forum_solve_text', '', true),
 			'forum_solve_color'     => $this->request->variable('forum_solve_color', ''),
-			'forum_lock_solved'     => $this->request->variable('forum_lock_solved', 0),
 		));
 
 		$event['forum_data'] = $forum_data;

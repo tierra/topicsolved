@@ -45,7 +45,7 @@ class main_listener_test extends event_test_case
 			->disableOriginalConstructor()->getMock();
 		$this->helper = $this->getMockBuilder('\phpbb\controller\helper')
 			->disableOriginalConstructor()->getMock();
-		$this->template = $this->getMockBuilder('\phpbb\template\template')->getMock();
+		$this->template = $this->getMock('\phpbb\template\template');
 
 		$this->main_listener = new main_listener(
 			$this->topicsolved, $this->helper, $this->template
