@@ -247,7 +247,7 @@ class topicsolved
 		if (!empty($alt))
 		{
 			$alt = $this->user->lang($alt);
-			$title = ' title="' . $alt . '"';
+			$title = ' title="' . htmlspecialchars($alt, ENT_QUOTES, 'UTF-8') . '"';
 		}
 
 		if (!empty($url))

@@ -11,7 +11,6 @@
 namespace tierra\topicsolved\tests\event;
 
 use tierra\topicsolved\event\acp_forums;
-use tierra\topicsolved\topicsolved;
 
 /**
  * Test all tierra\topicsolved\event\acp_forums events.
