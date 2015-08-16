@@ -4,7 +4,6 @@
  *
  * @copyright (c) Bryan Petty
  * @license GNU General Public License, version 2 (GPL-2.0)
- * [Dutch] translated by Dutch Translators (https://github.com/dutch-translators)
  *
  * @package tierra/topicsolved/language
  */

@@ -2,7 +2,7 @@
 /**
  * This file is part of the phpBB Topic Solved extension package.
  *
- * @copyright (c) Bryan Petty; Estonian translation by phpBBeesti.com 05/2015
+ * @copyright (c) Bryan Petty
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * @package tierra/topicsolved/language

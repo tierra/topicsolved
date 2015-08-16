@@ -1,0 +1,16 @@
+[main]
+host = https://www.transifex.com
+lang_map = en_GB: en, pt_BR: pt_br
+minimum_perc = 80
+type = PHP_ARRAY
+
+[phpbb-topic-solved.common]
+file_filter = language/<lang>/common.php
+source_file = language/en/common.php
+source_lang = en_GB
+
+[phpbb-topic-solved.info_acp_topicsolved]
+file_filter = language/<lang>/info_acp_topicsolved.php
+source_file = language/en/info_acp_topicsolved.php
+source_lang = en_GB
+

@@ -6,8 +6,6 @@
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * @package tierra/topicsolved/language
- *
- * Translation by: Anders Jenbo
  */
 
 if (!defined('IN_PHPBB'))

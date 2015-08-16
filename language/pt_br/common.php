@@ -1,7 +1,6 @@
 <?php
 /**
  * This file is part of the phpBB Topic Solved extension package.
- * Brazilian Portuguese translation by MarcosFPo
  *
  * @copyright (c) Bryan Petty
  * @license GNU General Public License, version 2 (GPL-2.0)

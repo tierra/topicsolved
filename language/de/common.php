@@ -6,9 +6,6 @@
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * @package tierra/topicsolved/language
- *
- * Deutsche Übersetzung von: Luke (www.wcsaga.org)
- *
  */
 
 if (!defined('IN_PHPBB'))
@@ -22,14 +19,14 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'SEARCH_UNSOLVED'		=> 'Zeigt Themen mit UNGELÖST-Markierung',
-	'SEARCH_YOUR_UNSOLVED'		=> 'Zeigt deine Themen mit UNGELÖST-Markierung',
-	'SEARCH_SOLVED'			=> 'Nur in Themen suchen mit GELÖST-Markierung',
-	'TOPIC_SOLVED'			=> 'Thema ist als GELÖST markiert',
-	'SET_TOPIC_SOLVED'		=> 'Markiere Beitrag als Lösung',
-	'SET_TOPIC_NOT_SOLVED'		=> 'Markiere Thema als UNGELÖST',
-	'BAD_METHOD_CALL'		=> 'Ungültiges Argument für die Methode "%s".',
-	'FORBIDDEN_MARK_SOLVED'		=> 'Du hast keine Berechtigung, um dieses Thema als GELÖST oder UNGELÖST markieren zu können.',
-	'TOPIC_ALREADY_SOLVED'		=> 'Thema ist bereits als GELÖST markiert.',
-	'TOPIC_ALREADY_UNSOLVED'	=> 'Thema ist bereits als UNGELÖST markiert.',
+	'SEARCH_UNSOLVED' => 'Zeigt Themen mit UNGELÖST-Markierung',
+	'SEARCH_YOUR_UNSOLVED' => 'Zeigt deine Themen mit UNGELÖST-Markierung',
+	'SEARCH_SOLVED' => 'Nur in Themen suchen mit GELÖST-Markierung',
+	'TOPIC_SOLVED' => 'Thema ist als GELÖST markiert',
+	'SET_TOPIC_SOLVED' => 'Markiere Beitrag als Lösung',
+	'SET_TOPIC_NOT_SOLVED' => 'Markiere Thema als UNGELÖST',
+	'BAD_METHOD_CALL' => 'Ungültiges Argument für die Methode "%s".',
+	'FORBIDDEN_MARK_SOLVED' => 'Du hast keine Berechtigung, um dieses Thema als GELÖST oder UNGELÖST markieren zu können.',
+	'TOPIC_ALREADY_SOLVED' => 'Thema ist bereits als GELÖST markiert.',
+	'TOPIC_ALREADY_UNSOLVED' => 'Thema ist bereits als UNGELÖST markiert.',
 ));
