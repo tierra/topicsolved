@@ -14,6 +14,19 @@ use tierra\topicsolved\event\main_listener;
 use tierra\topicsolved\topicsolved;
 
 /**
+ * Mock main_listener class for testing protected methods.
+ *
+ * @package tierra\topicsolved\tests\event
+ */
+class klass extends main_listener
+{
+	public function url_set_solved($topic_data, $post_id)
+	{
+		return $this->get_url_set_solved($topic_data, $post_id);
+	}
+}
+
+/**
  * Test all tierra\topicsolved\event\main_listener events.
  *
  * @package tierra/topicsolved/tests/event
@@ -321,5 +334,44 @@ class main_listener_test extends event_test_case
 				)
 			)
 		);
+	}
+
+	/**
+	 * Data set for test_get_url_set_solved.
+	 *
+	 * @return array Array of test data.
+	 */
+	public function get_url_set_solved_data()
+	{
+		return array(
+			array(0, 1, true, '0/1'),
+			array(1, 2, true, '1/2'),
+			array(0, 1, false, ''),
+		);
+	}
+
+	/**
+	 * Test that URLs to solved posts are generated correctly.
+	 *
+	 * @dataProvider get_url_set_solved_data
+	 */
+	public function test_get_url_set_solved(
+		$topic_solved_id, $post_id, $can_solve_post, $expected)
+	{
+		$listener = new klass($this->topicsolved, $this->helper, $this->template);
+		$topic_data = array('topic_solved' => $topic_solved_id);
+
+		$this->topicsolved->expects($this->once())
+			->method('user_can_solve_post')
+			->with($topic_solved_id ? 'unsolved' : 'solved', $topic_data)
+			->willReturn($can_solve_post);
+
+		if($can_solve_post)
+		{
+			$this->helper->expects($this->once())->method('route')
+				->willReturn("$topic_solved_id/$post_id");
+		}
+
+		$this->assertEquals($listener->url_set_solved($topic_data, $post_id), $expected);
 	}
 }

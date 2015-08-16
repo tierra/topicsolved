@@ -316,8 +316,8 @@ class main_listener implements EventSubscriberInterface
 	 */
 	protected function get_url_set_solved($topic_data, $post_id)
 	{
-		if ($this->topicsolved->user_can_solve_post('solved', $topic_data) &&
-			!$topic_data['topic_solved'])
+		if (!$topic_data['topic_solved'] &&
+			$this->topicsolved->user_can_solve_post('solved', $topic_data))
 		{
 			return $this->helper->route('tierra_topicsolved_controller_mark',
 				array(
@@ -326,8 +326,8 @@ class main_listener implements EventSubscriberInterface
 				)
 			);
 		}
-		else if ($this->topicsolved->user_can_solve_post('unsolved', $topic_data) &&
-			$topic_data['topic_solved'])
+		else if ($topic_data['topic_solved'] &&
+			$this->topicsolved->user_can_solve_post('unsolved', $topic_data))
 		{
 			return $this->helper->route('tierra_topicsolved_controller_mark',
 				array(
