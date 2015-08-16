@@ -71,8 +71,10 @@ class main_listener implements EventSubscriberInterface
 				=> 'search_modify_tpl_ary',
 			'core.viewtopic_assign_template_vars_before'
 				=> 'viewtopic_assign_template_vars_before',
-			'core.viewtopic_modify_post_row'
-				=> 'viewtopic_modify_post_row',
+			'core.viewtopic_modify_post_row' => array(
+				array('viewtopic_modify_post_row_button', 0),
+				array('viewtopic_modify_post_row_subject', 0),
+			)
 		);
 	}
 
@@ -253,13 +255,13 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Assign topic solved post data in topic view.
+	 * Assign topic solved post button data in topic view.
 	 *
 	 * @param \phpbb\event\data $event Post data being rendered.
 	 *
 	 * @return void
 	 */
-	public function viewtopic_modify_post_row($event)
+	public function viewtopic_modify_post_row_button($event)
 	{
 		$topic_data = $event['topic_data'];
 		$post_row = $event['post_row'];
@@ -276,6 +278,21 @@ class main_listener implements EventSubscriberInterface
 		{
 			$post_row['S_TOPIC_SOLVED'] = $topic_data['topic_solved'];
 		}
+
+		$event['post_row'] = $post_row;
+	}
+
+	/**
+	 * Assign topic solved post subject in topic view.
+	 *
+	 * @param \phpbb\event\data $event Post data being rendered.
+	 *
+	 * @return void
+	 */
+	public function viewtopic_modify_post_row_subject($event)
+	{
+		$topic_data = $event['topic_data'];
+		$post_row = $event['post_row'];
 
 		if ($topic_data['topic_solved'] == $event['row']['post_id'] &&
 			$topic_data['topic_type'] != POST_GLOBAL)

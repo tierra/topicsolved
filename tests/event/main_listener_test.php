@@ -14,19 +14,6 @@ use tierra\topicsolved\event\main_listener;
 use tierra\topicsolved\topicsolved;
 
 /**
- * Mock main_listener class for testing protected methods.
- *
- * @package tierra\topicsolved\tests\event
- */
-class klass extends main_listener
-{
-	public function url_set_solved($topic_data, $post_id)
-	{
-		return $this->get_url_set_solved($topic_data, $post_id);
-	}
-}
-
-/**
  * Test all tierra\topicsolved\event\main_listener events.
  *
  * @package tierra/topicsolved/tests/event
@@ -337,41 +324,126 @@ class main_listener_test extends event_test_case
 	}
 
 	/**
-	 * Data set for test_get_url_set_solved.
+	 * Data set for test_viewtopic_modify_post_row_button.
 	 *
 	 * @return array Array of test data.
 	 */
-	public function get_url_set_solved_data()
+	public function viewtopic_modify_post_row_button_data()
 	{
 		return array(
-			array(0, 1, true, '0/1'),
-			array(1, 2, true, '1/2'),
-			array(0, 1, false, ''),
+			array('', true),
+			array('1', true),
+			array('', false),
+			array('1', false)
 		);
 	}
 
 	/**
-	 * Test that URLs to solved posts are generated correctly.
+	 * Test the viewtopic_modify_post_row_button event.
 	 *
-	 * @dataProvider get_url_set_solved_data
+	 * @dataProvider viewtopic_modify_post_row_button_data
 	 */
-	public function test_get_url_set_solved(
-		$topic_solved_id, $post_id, $can_solve_post, $expected)
+	public function test_viewtopic_modify_post_row_button($topic_solved, $can_solve_post)
 	{
-		$listener = new klass($this->topicsolved, $this->helper, $this->template);
-		$topic_data = array('topic_solved' => $topic_solved_id);
-
 		$this->topicsolved->expects($this->once())
 			->method('user_can_solve_post')
-			->with($topic_solved_id ? 'unsolved' : 'solved', $topic_data)
+			->with(
+				$topic_solved ? 'unsolved' : 'solved',
+				array('topic_solved' => $topic_solved)
+			)
 			->willReturn($can_solve_post);
 
-		if($can_solve_post)
+		if ($can_solve_post)
 		{
-			$this->helper->expects($this->once())->method('route')
-				->willReturn("$topic_solved_id/$post_id");
+			$this->helper->expects($this->once())
+				->method('route')->willReturn($topic_solved);
+		}
+		else
+		{
+			$this->helper->expects($this->never())->method('route');
 		}
 
-		$this->assertEquals($listener->url_set_solved($topic_data, $post_id), $expected);
+		$data = $this->dispatch(
+			array($this->main_listener, 'viewtopic_modify_post_row_button'),
+			array(
+				'row' => array('post_id' => '1'),
+				'post_row' => array(),
+				'topic_data' => array('topic_solved' => $topic_solved)
+			)
+		);
+		$post_row = $data['post_row'];
+
+		if ($can_solve_post)
+		{
+			$this->assertEquals($topic_solved, $post_row['U_SET_SOLVED']);
+		}
+		if (!empty($topic_solved))
+		{
+			$this->assertEquals($topic_solved, $post_row['S_TOPIC_SOLVED']);
+		}
+	}
+
+	/**
+	 * Data set for test_viewtopic_modify_post_row.
+	 *
+	 * @return array Array of test data.
+	 */
+	public function viewtopic_modify_post_row_data()
+	{
+		return array(
+			array('', POST_NORMAL, '', '',
+				'Subject'),
+			array('1', POST_NORMAL, '', '',
+				'Subject&nbsp;&nbsp;<img src="" />'),
+			array('', POST_NORMAL, '[SOLVED]', '',
+				'Subject'),
+			array('1', POST_NORMAL, '[SOLVED]', '',
+				'Subject&nbsp;&nbsp;[SOLVED]'),
+			array('', POST_NORMAL, '[SOLVED]', '00ff00',
+				'Subject'),
+			array('1', POST_NORMAL, '[SOLVED]', '00ff00',
+				'Subject&nbsp;&nbsp;<span style="color: #00ff00">[SOLVED]</span>'),
+			array('', POST_GLOBAL, '', '',
+				'Subject'),
+			array('1', POST_GLOBAL, '', '',
+				'Subject'),
+		);
+	}
+
+	/**
+	 * Test the viewtopic_modify_post_row_subject event.
+	 *
+	 * @dataProvider viewtopic_modify_post_row_data
+	 */
+	public function test_viewtopic_modify_post_row($topic_solved, $topic_type,
+		$forum_solve_text, $forum_solve_color, $expected_post_subject)
+	{
+		$topic_data = array(
+			'topic_solved' => $topic_solved,
+			'topic_type' => $topic_type,
+			'forum_solve_text' => $forum_solve_text,
+			'forum_solve_color' => $forum_solve_color
+		);
+
+		if ($expected_post_subject != 'Subject' && empty($forum_solve_text))
+		{
+			$this->topicsolved->expects($this->once())->method('image')
+				->with('post', 'TOPIC_SOLVED')->willReturn('<img src="" />');
+		}
+		else
+		{
+			$this->helper->expects($this->never())->method('image');
+		}
+
+		$data = $this->dispatch(
+			array($this->main_listener, 'viewtopic_modify_post_row_subject'),
+			array(
+				'row' => array('post_id' => '1'),
+				'post_row' => array('POST_SUBJECT' => 'Subject'),
+				'topic_data' => $topic_data
+			)
+		);
+
+		$this->assertEquals($expected_post_subject, $data['post_row']['POST_SUBJECT']);
 	}
 }
