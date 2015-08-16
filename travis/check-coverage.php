@@ -8,7 +8,7 @@
  * @package tierra/topicsolved/travis
  */
 
-const MINIMUM_COVERAGE = 75.0;
+const MINIMUM_COVERAGE = 90.0;
 
 $coverage = simplexml_load_file(dirname(__DIR__) . '/clover.xml');
 
