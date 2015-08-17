@@ -46,6 +46,10 @@ This extension comes bundled with support for the following languages:
 *    Swedish (sv)
 *    Turkish (tr)
 
+Additional translations can be [requested and submitted here][transifex].
+
+[transifex]: https://www.transifex.com/tierra/phpbb-topic-solved/
+
 ## Supported Styles
 
 Most phpBB 3.1.x styles should work with this extension out of the box,
