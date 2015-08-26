@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1ba74fb8418e74734e667da3d701026d",
+    "hash": "18a84cfd137bce22cf0b3150bbd2e3f0",
     "packages": [
         {
             "name": "composer/installers",
@@ -109,12 +109,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "418ae782307841ac50fe26daa4cfe04520b0de9c"
+                "reference": "f7afa2f80e88faf722167488f47dea0ba6178a45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/418ae782307841ac50fe26daa4cfe04520b0de9c",
-                "reference": "418ae782307841ac50fe26daa4cfe04520b0de9c",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/f7afa2f80e88faf722167488f47dea0ba6178a45",
+                "reference": "f7afa2f80e88faf722167488f47dea0ba6178a45",
                 "shasum": ""
             },
             "require": {
@@ -159,7 +159,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2015-04-18 14:43:54"
+            "time": "2015-08-24 20:58:42"
         },
         {
             "name": "gitonomy/gitlib",
@@ -199,7 +199,7 @@
             ],
             "authors": [
                 {
-                    "name": "Alexandre Salom\u00e9",
+                    "name": "Alexandre Salomé",
                     "email": "alexandre.salome@gmail.com",
                     "homepage": "http://alexandre-salome.fr"
                 },
@@ -511,16 +511,16 @@
         },
         {
             "name": "sensiolabs/ansi-to-html",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/ansi-to-html.git",
-                "reference": "fd0aa98170e12131ab989c39252df076cff60121"
+                "reference": "02598b975c510e9e7d07d0be0a89c7a6b43464d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/ansi-to-html/zipball/fd0aa98170e12131ab989c39252df076cff60121",
-                "reference": "fd0aa98170e12131ab989c39252df076cff60121",
+                "url": "https://api.github.com/repos/sensiolabs/ansi-to-html/zipball/02598b975c510e9e7d07d0be0a89c7a6b43464d6",
+                "reference": "02598b975c510e9e7d07d0be0a89c7a6b43464d6",
                 "shasum": ""
             },
             "require": {
@@ -551,11 +551,11 @@
                 }
             ],
             "description": "A library to convert a text with ANSI codes to HTML",
-            "time": "2015-03-17 06:34:10"
+            "time": "2015-07-22 03:07:58"
         },
         {
             "name": "symfony/config",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
@@ -606,17 +606,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "042107bc202845086739414339e551fbe81293d7"
+                "reference": "0e5e18ae09d3f5c06367759be940e9ed3f568359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/042107bc202845086739414339e551fbe81293d7",
-                "reference": "042107bc202845086739414339e551fbe81293d7",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/0e5e18ae09d3f5c06367759be940e9ed3f568359",
+                "reference": "0e5e18ae09d3f5c06367759be940e9ed3f568359",
                 "shasum": ""
             },
             "require": {
@@ -660,11 +660,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-13 09:09:47"
+            "time": "2015-07-26 09:08:40"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -723,7 +723,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
@@ -773,7 +773,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
@@ -823,7 +823,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
@@ -873,7 +873,7 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Stopwatch",
             "source": {
                 "type": "git",
@@ -923,17 +923,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "446353cc05339e676fb57e35232d2bfd055a47cd"
+                "reference": "c044d1744b8e91aaaa0d9bac683ab87ec7cbf359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/446353cc05339e676fb57e35232d2bfd055a47cd",
-                "reference": "446353cc05339e676fb57e35232d2bfd055a47cd",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/c044d1744b8e91aaaa0d9bac683ab87ec7cbf359",
+                "reference": "c044d1744b8e91aaaa0d9bac683ab87ec7cbf359",
                 "shasum": ""
             },
             "require": {
@@ -969,7 +969,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-06-30 16:10:16"
+            "time": "2015-07-26 08:59:42"
         }
     ],
     "aliases": [],
@@ -983,5 +983,8 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.3.3"
+    }
 }
