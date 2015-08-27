@@ -42,6 +42,7 @@ This extension comes bundled with support for the following languages:
 *    German (Formal Honorifics) (de_x_sie)
 *    Japanese (ja)
 *    Polish (pl)
+*    Portuguese (pt)
 *    Portuguese (Brazilian) (pt_br)
 *    Russian (ru)
 *    Spanish (es)
