@@ -31,6 +31,7 @@ This is an update of the phpBB 3.0.x Topic Solved MOD, written by Jari Kanerva.
 
 This extension comes bundled with support for the following languages:
 
+*    Arabic (ar)
 *    Czech (cs)
 *    Danish (da)
 *    Dutch (nl)
