@@ -35,6 +35,9 @@ class topicsolved
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var \phpbb\event\dispatcher_interface */
+	protected $dispatcher;
+
 	/** @var string core.root_path */
 	protected $root_path;
 
@@ -47,6 +50,7 @@ class topicsolved
 	 * @param \phpbb\db\driver\driver_interface $db Database object
 	 * @param \phpbb\user $user
 	 * @param \phpbb\auth\auth $auth
+	 * @param \phpbb\event\dispatcher_interface $dispatcher
 	 * @param string $root_path core.root_path
 	 * @param string $php_ext core.php_ext
 	 */
@@ -54,11 +58,13 @@ class topicsolved
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\user $user,
 		\phpbb\auth\auth $auth,
+		\phpbb\event\dispatcher_interface $dispatcher,
 		$root_path, $php_ext)
 	{
 		$this->db = $db;
 		$this->user = $user;
 		$this->auth = $auth;
+		$this->dispatcher = $dispatcher;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 
@@ -180,6 +186,20 @@ class topicsolved
 		}
 
 		$this->update_topic($topic_data['topic_id'], $column_data);
+
+		/**
+		 * This event allows you to perform additional actions after a topic has been marked as solved.
+		 *
+		 * @event tierra.topicsolved.mark_solved_after
+		 * @var	array	topic_data	Array with general topic data
+		 * @var	array	column_data	Array with topic data that the database has been updated with
+		 * @since 2.2.0
+		 */
+		$vars = array(
+			'topic_data',
+			'column_data',
+		);
+		$this->dispatcher->trigger_event('tierra.topicsolved.mark_solved_after', compact($vars));
 	}
 
 	/**
@@ -199,6 +219,20 @@ class topicsolved
 		}
 
 		$this->update_topic($topic_data['topic_id'], $column_data);
+
+		/**
+		 * This event allows you to perform additional actions after a topic has been marked as unsolved.
+		 *
+		 * @event tierra.topicsolved.mark_unsolved_after
+		 * @var	array	topic_data	Array with general topic data
+		 * @var	array	column_data	Array with topic data that the database has been updated with
+		 * @since 2.2.0
+		 */
+		$vars = array(
+			'topic_data',
+			'column_data',
+		);
+		$this->dispatcher->trigger_event('tierra.topicsolved.mark_unsolved_after', compact($vars));
 	}
 
 	/**
