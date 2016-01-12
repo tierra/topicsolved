@@ -75,7 +75,7 @@ class main_controller_test extends \phpbb_database_test_case
 
 		$auth = $this->getMock('\phpbb\auth\auth');
 
-		$this->topicsolved = new topicsolved($this->new_dbal(), $user, $auth, $phpbb_root_path, $phpEx);
+		$this->topicsolved = new topicsolved($this->new_dbal(), $user, $auth, $phpbb_dispatcher, $phpbb_root_path, $phpEx);
 
 		return new main_controller($this->topicsolved);
 	}

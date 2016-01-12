@@ -25,5 +25,6 @@ services:
             - @dbal.conn
             - @user
             - @auth
+            - @dispatcher
             - %core.root_path%
             - %core.php_ext%
