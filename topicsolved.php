@@ -199,7 +199,7 @@ class topicsolved
 			'topic_data',
 			'column_data',
 		);
-		$this->dispatcher->trigger_event('tierra.topicsolved.mark_solved_after', compact($vars));
+		extract($this->dispatcher->trigger_event('tierra.topicsolved.mark_solved_after', compact($vars)));
 	}
 
 	/**
@@ -232,7 +232,7 @@ class topicsolved
 			'topic_data',
 			'column_data',
 		);
-		$this->dispatcher->trigger_event('tierra.topicsolved.mark_unsolved_after', compact($vars));
+		extract($this->dispatcher->trigger_event('tierra.topicsolved.mark_unsolved_after', compact($vars)));
 	}
 
 	/**
