@@ -43,9 +43,7 @@ class topicsolved_test extends \phpbb_database_test_case
 
 		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$this->auth = $this->getMock('\phpbb\auth\auth');
-		$this->dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->dispatcher = new \phpbb_mock_event_dispatcher();
 
 		$this->topicsolved = new topicsolved(
 			$this->new_dbal(), $this->user, $this->auth, $this->dispatcher, $phpbb_root_path, $phpEx
