@@ -43,7 +43,8 @@ class topicsolved_test extends \phpbb_database_test_case
 
 		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$this->auth = $this->getMock('\phpbb\auth\auth');
-		$this->dispatcher = new \phpbb_mock_event_dispatcher();
+		$this->dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher')
+			->disableOriginalConstructor()->getMock();
 
 		$this->topicsolved = new topicsolved(
 			$this->new_dbal(), $this->user, $this->auth, $this->dispatcher, $phpbb_root_path, $phpEx
@@ -95,6 +96,62 @@ class topicsolved_test extends \phpbb_database_test_case
 			->with('m_lock', 1)->willReturn(true);
 
 		$this->assertTrue($this->topicsolved->user_can_lock_post(1));
+	}
+
+	/**
+	 * Ensure tierra.topicsolved.mark_solved_after event works.
+	 */
+	public function test_mark_solved_event()
+	{
+		$topic_data = array(
+			'forum_lock_solved' => '1',
+			'forum_id' => 2,
+			'topic_id' => 1
+		);
+
+		$this->auth->expects($this->once())->method('acl_get')
+			->with('m_lock', 2)->willReturn(true);
+		$this->dispatcher->expects($this->once())->method('trigger_event')
+			->with(
+				'tierra.topicsolved.mark_solved_after',
+				array(
+					'topic_data' => $topic_data,
+					'column_data' => array(
+						'topic_solved' => 5,
+						'topic_status' => ITEM_LOCKED
+					)
+				)
+			)->willReturn(array());
+
+		$this->topicsolved->mark_solved($topic_data, 5);
+	}
+
+	/**
+	 * Ensure tierra.topicsolved.mark_unsolved_after event works.
+	 */
+	public function test_mark_unsolved_event()
+	{
+		$topic_data = array(
+			'forum_lock_solved' => '1',
+			'forum_id' => 2,
+			'topic_id' => 1
+		);
+
+		$this->auth->expects($this->once())->method('acl_get')
+			->with('m_lock', 2)->willReturn(true);
+		$this->dispatcher->expects($this->once())->method('trigger_event')
+			->with(
+				'tierra.topicsolved.mark_unsolved_after',
+				array(
+					'topic_data' => $topic_data,
+					'column_data' => array(
+						'topic_solved' => 0,
+						'topic_status' => ITEM_UNLOCKED
+					)
+				)
+			)->willReturn(array());
+
+		$this->topicsolved->mark_unsolved($topic_data);
 	}
 
 	/**
