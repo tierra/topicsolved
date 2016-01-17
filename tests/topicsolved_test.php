@@ -27,6 +27,9 @@ class topicsolved_test extends \phpbb_database_test_case
 	/** @var \phpbb\auth\auth|\PHPUnit_Framework_MockObject_MockObject */
 	protected $auth;
 
+	/** @var \phpbb\event\dispatcher|\PHPUnit_Framework_MockObject_MockObject */
+	protected $dispatcher;
+
 	/**
 	 * Configure the test environment.
 	 *
@@ -40,9 +43,10 @@ class topicsolved_test extends \phpbb_database_test_case
 
 		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$this->auth = $this->getMock('\phpbb\auth\auth');
+		$this->dispatcher = new \phpbb_mock_event_dispatcher();
 
 		$this->topicsolved = new topicsolved(
-			$this->new_dbal(), $this->user, $this->auth, $phpbb_root_path, $phpEx
+			$this->new_dbal(), $this->user, $this->auth, $this->dispatcher, $phpbb_root_path, $phpEx
 		);
 	}
 
