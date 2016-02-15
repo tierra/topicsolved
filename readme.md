@@ -37,6 +37,7 @@ This extension comes bundled with support for the following languages:
 *    Dutch (nl)
 *    English (en)
 *    Estonian (et)
+*    Finnish (fi)
 *    French (fr)
 *    German (de)
 *    German (Formal Honorifics) (de_x_sie)
