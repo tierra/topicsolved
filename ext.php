@@ -17,6 +17,9 @@ namespace tierra\topicsolved;
  */
 class ext extends \phpbb\extension\base
 {
+	/** Minimum PHP version. */
+	const PHP_MIN_VERSION = '5.3.10';
+
 	/** Minimum phpBB version. */
 	const PHPBB_MIN_VERSION = '3.1.3';
 
@@ -28,6 +31,8 @@ class ext extends \phpbb\extension\base
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-		return version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=');
+		return
+			version_compare(PHP_VERSION, self::PHP_MIN_VERSION, '>=') &&
+			version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=');
 	}
 }

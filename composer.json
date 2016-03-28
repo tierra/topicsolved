@@ -18,11 +18,11 @@
 	],
 	"config": {
 		"platform": {
-			"php": "5.3.3"
+			"php": "5.3.10"
 		}
 	},
 	"require": {
-		"php": ">=5.3.3",
+		"php": ">=5.3.10",
 		"composer/installers": "~1.0"
 	},
 	"require-dev": {

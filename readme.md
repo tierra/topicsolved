@@ -69,7 +69,7 @@ style does not work correctly, you can request support for your style from the
 
 ## Requirements
 
-*   PHP 5.3.3+
+*   PHP 5.3.10+
 *   phpBB 3.1.3+
 
 ## Install
