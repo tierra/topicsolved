@@ -20,13 +20,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'SEARCH_UNSOLVED' => 'Visualizar tópicos não resolvidos',
-	'SEARCH_YOUR_UNSOLVED' => 'Visualizar seus tópicos não resolvidos',
-	'SEARCH_SOLVED' => 'Buscar apenas em tópicos resolvidos',
+	'SEARCH_YOUR_UNSOLVED' => 'Visualiza os teus tópicos não resolvidos',
+	'SEARCH_SOLVED' => 'Pesquisar apenas em tópicos resolvidos',
 	'TOPIC_SOLVED' => 'Tópico resolvido',
 	'SET_TOPIC_SOLVED' => 'Aceitar esta resposta',
 	'SET_TOPIC_NOT_SOLVED' => 'Marcar tópico como resolvido',
 	'BAD_METHOD_CALL' => 'Argumento inválido passado para o método `%1$s`.',
-	'FORBIDDEN_MARK_SOLVED' => 'Você não tem permissões para marcar este tópico como resolvido ou não resolvido.',
-	'TOPIC_ALREADY_SOLVED' => 'Tópico já foi marcado como resolvido.',
-	'TOPIC_ALREADY_UNSOLVED' => 'Tópico já está marcado como não resolvido.',
+	'FORBIDDEN_MARK_SOLVED' => 'Não tens permissões para marcar este tópico como resolvido ou não resolvido.',
+	'TOPIC_ALREADY_SOLVED' => 'O tópico já estava marcado como resolvido.',
+	'TOPIC_ALREADY_UNSOLVED' => 'O tópico já estava marcado como não resolvido.',
 ));
