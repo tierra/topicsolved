@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  phpbb31:
+    build: docker/phpbb-3.1
+    links:
+      - db
+    volumes:
+      - app31:/app
+      - .:/app/phpBB/ext/tierra/topicsolved
+
+  phpbb32:
+    build: docker/phpbb-3.2
+    links:
+      - db
+    volumes:
+      - app32:/app
+      - .:/app/phpBB/ext/tierra/topicsolved
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: phpbb
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db: {}
+  app31: {}
+  app32: {}

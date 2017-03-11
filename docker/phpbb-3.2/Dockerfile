@@ -1,0 +1,30 @@
+FROM php:7.1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libfreetype6-dev \
+      libjpeg62-turbo-dev \
+      libmcrypt-dev \
+      libpng12-dev \
+      unzip \
+      vim \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/
+
+RUN docker-php-ext-install -j$(nproc) iconv mcrypt mysqli \
+ && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+ && docker-php-ext-install -j$(nproc) gd
+
+ENV PHPBB_VERSION 3.2.0
+ENV PHPBB_SHA256 5d391f65d4dc335877fc2f0a9ab4df7ac6f542839df73d067cbd41a5e074e94c
+
+WORKDIR /app
+
+RUN curl -o phpbb.tar.gz -fSL https://github.com/phpbb/phpbb/archive/release-$PHPBB_VERSION.tar.gz \
+ && echo "$PHPBB_SHA256 *phpbb.tar.gz" | sha256sum -c - \
+ && tar --strip-components=1 -xzf phpbb.tar.gz && rm phpbb.tar.gz
+
+WORKDIR /app/phpBB
+
+RUN php ../composer.phar install
+
+EXPOSE 80
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/app/phpBB"]
