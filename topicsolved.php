@@ -275,8 +275,58 @@ class topicsolved
 	public function image($type, $alt = '', $url = '')
 	{
 		$title = '';
-
 		$markup = $this->user->img('icon_solved_' . $type, $alt);
+
+		if (!empty($alt))
+		{
+			$alt = $this->user->lang($alt);
+			$title = ' title="' . htmlspecialchars($alt, ENT_QUOTES, 'UTF-8') . '"';
+		}
+
+		if (!empty($url))
+		{
+			$markup = sprintf('<a href="%s"%s>%s</a>',
+				htmlspecialchars($url, ENT_QUOTES, 'UTF-8'), $title, $markup);
+		}
+
+		return $markup;
+	}
+
+	/**
+	 * Generate markup for the given solved indicator icon.
+	 *
+	 * @param string $color Color to use for the icon.
+	 * @param string $alt Language code for title and alternative text.
+	 * @param string $url Optional link to solved post.
+	 *
+	 * @return string HTML markup for icon.
+	 */
+	public function icon($color = '', $alt = '', $url = '')
+	{
+		$title = '';
+		if (empty($color))
+		{
+			$color = '00BF00';
+		}
+		$classes = 'fa fa-check-circle fa-fw';
+
+		/**
+		 * This event makes it possible to customize the solved icon.
+		 *
+		 * @event tierra.topicsolved.render_icon
+		 * @var	string	alt	Alternative text label for link if a URL was provided.
+		 * @var	string	classes	CSS classes used for icon.
+		 * @var	string	color	Color applied to the icon.
+		 * @var	string	url	Link to the solved post.
+		 * @since 2.3.0
+		 */
+		$vars = array('alt', 'classes', 'color', 'url');
+		extract($this->dispatcher->trigger_event('tierra.topicsolved.render_icon', compact($vars)));
+
+		$markup = sprintf(
+			'<i class="%1s" style="color: #%2s" aria-hidden="true"></i>',
+			$classes, $color
+		);
 
 		if (!empty($alt))
 		{

@@ -29,6 +29,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
+	/** @var bool True if installed on phpBB 3.1. */
+	protected $phpbb31;
+
 	/** @var array Forum topic solved settings for events missing them. */
 	protected $forum_data = array();
 
@@ -47,6 +50,20 @@ class main_listener implements EventSubscriberInterface
 		$this->topicsolved = $topicsolved;
 		$this->helper = $helper;
 		$this->template = $template;
+		$this->assign_phpbb_version_var();
+	}
+
+	/**
+	 * Assign template variable for checking phpBB 3.1 compatibility.
+	 *
+	 * @return void
+	 */
+	protected function assign_phpbb_version_var()
+	{
+		$this->phpbb31 =
+			phpbb_version_compare(PHPBB_VERSION, '3.1.0@dev', '>=') &&
+			phpbb_version_compare(PHPBB_VERSION, '3.2.0@dev', '<');
+		$this->template->assign_var('TOPIC_SOLVED_PHPBB31', $this->phpbb31);
 	}
 
 	/**
@@ -212,7 +229,14 @@ class main_listener implements EventSubscriberInterface
 		}
 		else
 		{
-			$title = '&nbsp;' . $this->topicsolved->image('list', 'TOPIC_SOLVED', $solved_url);
+			if ($this->phpbb31)
+			{
+				$title = '&nbsp;' . $this->topicsolved->image('list', 'TOPIC_SOLVED', $solved_url);
+			}
+			else
+			{
+				$title = $this->topicsolved->icon($row['forum_solve_color'], 'TOPIC_SOLVED', $solved_url);
+			}
 		}
 
 		return $title;
@@ -242,9 +266,18 @@ class main_listener implements EventSubscriberInterface
 			}
 			else
 			{
-				$this->template->assign_var('TOPIC_SOLVED_IMAGE',
-					$this->topicsolved->image('head', 'TOPIC_SOLVED')
-				);
+				if ($this->phpbb31)
+				{
+					$this->template->assign_var('TOPIC_SOLVED_IMAGE',
+						$this->topicsolved->image('head', 'TOPIC_SOLVED')
+					);
+				}
+				else
+				{
+					$this->template->assign_var('TOPIC_SOLVED_IMAGE',
+						$this->topicsolved->icon($topic_data['forum_solve_color'], 'TOPIC_SOLVED')
+					);
+				}
 			}
 
 			if (!empty($topic_data['forum_solve_color']))
@@ -297,10 +330,10 @@ class main_listener implements EventSubscriberInterface
 		if ($topic_data['topic_solved'] == $event['row']['post_id'] &&
 			$topic_data['topic_type'] != POST_GLOBAL)
 		{
-			$post_row['POST_SUBJECT'] .= '&nbsp;&nbsp;';
-
 			if (!empty($topic_data['forum_solve_text']))
 			{
+				$post_row['POST_SUBJECT'] .= '&nbsp;&nbsp;';
+
 				if (!empty($topic_data['forum_solve_color']))
 				{
 					$post_row['POST_SUBJECT'] .= sprintf(
@@ -316,7 +349,15 @@ class main_listener implements EventSubscriberInterface
 			}
 			else
 			{
-				$post_row['POST_SUBJECT'] .= $this->topicsolved->image('post', 'TOPIC_SOLVED');
+				if ($this->phpbb31)
+				{
+					$post_row['POST_SUBJECT'] .= '&nbsp;&nbsp;' .
+						$this->topicsolved->image('post', 'TOPIC_SOLVED');
+				}
+				else
+				{
+					$post_row['POST_SUBJECT'] .= $this->topicsolved->icon($topic_data['forum_solve_color']);
+				}
 			}
 		}
 
