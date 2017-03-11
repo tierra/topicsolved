@@ -196,4 +196,54 @@ class topicsolved_test extends \phpbb_database_test_case
 
 		$this->assertEquals($expected, $this->topicsolved->image($type, $alt, $url));
 	}
+
+	/**
+	 * Data set for test_icon
+	 *
+	 * @return array
+	 */
+	public function icon_test_data()
+	{
+		return array(
+			array('', 'TOPIC_SOLVED', 'test.php',
+				'<a href="test.php" title="TOPIC_SOLVED"><i class="fa fa-check-circle fa-fw" style="color: #00BF00" aria-hidden="true"></i></a>'),
+			array('FF0000', 'T<>""S', '/anchor/test.php',
+				'<a href="/anchor/test.php" title="T&lt;&gt;&quot;&quot;S"><i class="fa fa-check-circle fa-fw" style="color: #FF0000" aria-hidden="true"></i></a>'),
+			array('00FF00', 'TOPIC_SOLVED', '//example.com/test.php',
+				'<a href="//example.com/test.php" title="TOPIC_SOLVED"><i class="fa fa-check-circle fa-fw" style="color: #00FF00" aria-hidden="true"></i></a>'),
+			array('', '', 'http://example.com/',
+				'<a href="http://example.com/"><i class="fa fa-check-circle fa-fw" style="color: #00BF00" aria-hidden="true"></i></a>'),
+			array('', '', 'test.php?f=1&s=two%20words',
+				'<a href="test.php?f=1&amp;s=two%20words"><i class="fa fa-check-circle fa-fw" style="color: #00BF00" aria-hidden="true"></i></a>'),
+		);
+	}
+
+	/**
+	 * Ensure proper icon markup is being generated.
+	 *
+	 * @param string $color Color to use for the icon.
+	 * @param string $alt Language code for title and alternative text.
+	 * @param string $url Optional link to solved post.
+	 * @param string $expected Result expected from image() call.
+	 *
+	 * @dataProvider icon_test_data
+	 */
+	public function test_icon($color, $alt, $url, $expected)
+	{
+		$this->user->expects($this->any())->method('lang')
+			->will($this->returnArgument(0));
+
+		$this->dispatcher->expects($this->once())->method('trigger_event')
+			->with(
+				'tierra.topicsolved.render_icon',
+				array(
+					'alt' => $alt,
+					'classes' => 'fa fa-check-circle fa-fw',
+					'color' => empty($color) ? '00BF00' : $color,
+					'url' => $url
+				)
+			)->willReturn(array());
+
+		$this->assertEquals($expected, $this->topicsolved->icon($color, $alt, $url));
+	}
 }
