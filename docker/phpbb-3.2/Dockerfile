@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libfreetype6-dev \
       libjpeg62-turbo-dev \
       libmcrypt-dev \
-      libpng12-dev \
+      libpng-dev \
       unzip \
       vim \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/
@@ -13,8 +13,8 @@ RUN docker-php-ext-install -j$(nproc) iconv mcrypt mysqli \
  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
  && docker-php-ext-install -j$(nproc) gd
 
-ENV PHPBB_VERSION 3.2.0
-ENV PHPBB_SHA256 5d391f65d4dc335877fc2f0a9ab4df7ac6f542839df73d067cbd41a5e074e94c
+ENV PHPBB_VERSION 3.2.3
+ENV PHPBB_SHA256 102a3e5a32b598510060217a09047f150472ad4ed8bff78273e215696de6ce8a
 
 WORKDIR /app
 
