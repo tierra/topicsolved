@@ -1,18 +1,18 @@
 {
 	"stable": {
 		"2.0": {
-			"current": "2.2.0",
-			"download": "https://github.com/tierra/topicsolved/releases/download/2.2.0/topicsolved-2.2.0.zip",
-			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.2.0",
+			"current": "2.3.0",
+			"download": "https://github.com/tierra/topicsolved/releases/download/2.3.0/topicsolved-2.3.0.zip",
+			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.3.0",
 			"eol": null,
 			"security": false
 		}
 	},
 	"unstable": {
 		"2.0": {
-			"current": "2.2.0",
-			"download": "https://github.com/tierra/topicsolved/releases/download/2.2.0/topicsolved-2.2.0.zip",
-			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.2.0",
+			"current": "2.3.0",
+			"download": "https://github.com/tierra/topicsolved/releases/download/2.3.0/topicsolved-2.3.0.zip",
+			"announcement": "https://github.com/tierra/topicsolved/releases/tag/2.3.0",
 			"eol": null,
 			"security": false
 		}
