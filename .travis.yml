@@ -1,24 +1,25 @@
 language: php
 sudo: required
+dist: precise
 
 matrix:
   include:
     - php: 5.3
-      env: DB=mysqli
+      env: DB=mysqli PHPBB_BRANCH=3.1.x
     - php: 5.4
-      env: DB=mysqli
+      env: DB=mysqli PHPBB_BRANCH=3.1.x
     - php: 5.4
-      env: DB=mysql
+      env: DB=mysql PHPBB_BRANCH=3.1.x
     - php: 5.4
-      env: DB=mariadb
+      env: DB=mariadb PHPBB_BRANCH=3.1.x
     - php: 5.4
-      env: DB=postgres
+      env: DB=postgres PHPBB_BRANCH=3.1.x
     - php: 5.4
-      env: DB=sqlite3
+      env: DB=sqlite3 PHPBB_BRANCH=3.1.x
     - php: 5.5
-      env: DB=mysqli
+      env: DB=mysqli PHPBB_BRANCH=3.2.x
     - php: 5.6
-      env: DB=mysqli
+      env: DB=mysqli PHPBB_BRANCH=3.1.x
   fast_finish: true
 
 env:
@@ -27,10 +28,9 @@ env:
     - SNIFF="1"     # Run code sniffer
     - IMAGE_ICC="1" # Run ICC profile sniffer on images
     - EPV="1"       # Run EPV (Extension Pre Validator)
-    - PHPBB_BRANCH="3.1.x"
 
 install:
-  - travis_retry composer install --dev --no-interaction --prefer-source
+  - travis_retry composer install --no-interaction
   - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
   - cd ../../phpBB3
   - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH

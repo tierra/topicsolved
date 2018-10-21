@@ -24,7 +24,7 @@ RUN curl -o phpbb.tar.gz -fSL https://github.com/phpbb/phpbb/archive/release-$PH
 
 WORKDIR /app/phpBB
 
-RUN php ../composer.phar install
+RUN php ../composer.phar install --no-interaction
 
 EXPOSE 80
 CMD ["php", "-S", "0.0.0.0:80", "-t", "/app/phpBB"]
