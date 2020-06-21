@@ -2,29 +2,29 @@ services:
     tierra.topicsolved.controller:
         class: tierra\topicsolved\controller\main_controller
         arguments:
-            - @tierra.topicsolved.topicsolved
+            - '@tierra.topicsolved.topicsolved'
     tierra.topicsolved.event:
         class: tierra\topicsolved\event\main_listener
         arguments:
-            - @tierra.topicsolved.topicsolved
-            - @controller.helper
-            - @template
+            - '@tierra.topicsolved.topicsolved'
+            - '@controller.helper'
+            - '@template'
         tags:
             - { name: event.listener }
     tierra.topicsolved.event.acp_forums:
         class: tierra\topicsolved\event\acp_forums
         arguments:
-            - @tierra.topicsolved.topicsolved
-            - @template
-            - @request
+            - '@tierra.topicsolved.topicsolved'
+            - '@template'
+            - '@request'
         tags:
             - { name: event.listener }
     tierra.topicsolved.topicsolved:
         class: tierra\topicsolved\topicsolved
         arguments:
-            - @dbal.conn
-            - @user
-            - @auth
-            - @dispatcher
-            - %core.root_path%
-            - %core.php_ext%
+            - '@dbal.conn'
+            - '@user'
+            - '@auth'
+            - '@dispatcher'
+            - '%core.root_path%'
+            - '%core.php_ext%'
