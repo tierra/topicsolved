@@ -1,0 +1,18 @@
+.topic_solved_title_link:hover {
+	text-decoration: none;
+}
+
+.topic_solved_icon {
+	--hue: 120deg;
+	--sat: 100%;
+	--lightness: 37%;
+	color: hsl(var(--hue) var(--sat) var(--lightness));
+}
+
+.topic_solved_title_link .topic_solved_icon {
+	display: inline-flex;
+}
+
+:is(.topic_solved_title_link, .list-inner a):hover .topic_solved_icon {
+	color: hsl(var(--hue) var(--sat) calc(var(--lightness) - 6%));
+}
