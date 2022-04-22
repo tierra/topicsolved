@@ -304,11 +304,8 @@ class topicsolved
 	public function icon($color = '', $alt = '', $url = '')
 	{
 		$title = '';
-		if (empty($color))
-		{
-			$color = '00BF00';
-		}
-		$classes = 'fa fa-check-circle fa-fw';
+
+		$classes = 'topic_solved_icon fa fa-check-circle fa-fw';
 
 		/**
 		 * This event makes it possible to customize the solved icon.
@@ -324,8 +321,9 @@ class topicsolved
 		extract($this->dispatcher->trigger_event('tierra.topicsolved.render_icon', compact($vars)));
 
 		$markup = sprintf(
-			'<i class="%1s" style="color: #%2s" aria-hidden="true"></i>',
-			$classes, $color
+			'<i class="%1s" style="%2s" aria-hidden="true"></i>',
+			$classes,
+			empty($color) ? '' : "color: #$color"
 		);
 
 		if (!empty($alt))
